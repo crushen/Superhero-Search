@@ -1,18 +1,40 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div v-if="loading">
+      <p>...loading</p>
+    </div>
+
+    <div v-else>
+      <ul>
+        <li
+          v-for="hero in superheroes"
+          :key="hero.id">
+          {{ hero.name }}
+
+          <img :src="`${hero.thumbnail.path}.${hero.thumbnail.extension}`" alt="">
+        </li>
+      </ul>
+
+      <p v-html="attribution" />
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { mapState } from 'vuex'
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
+  computed: {
+    ...mapState(['superheroes', 'loading', 'attribution'])
+  },
+  mounted() {
+    this.$store.dispatch('getSuperheroes')
   }
 }
 </script>
+
+<style scoped>
+img {
+  width: 200px;
+}
+</style>
