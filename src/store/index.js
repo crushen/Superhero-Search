@@ -12,7 +12,8 @@ export default new Vuex.Store({
     offset: 0,
     loading: true,
     attribution: null,
-    error: null
+    error: null,
+    hasNoImage: hero => hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
   },
   actions: {
     async getSuperheroes({commit, state}) {
@@ -39,10 +40,8 @@ export default new Vuex.Store({
   },
   mutations: {
     setSuperheroes(state, response) {
-      // filter out any heroes that don't have an image
-      const hasNoImage = hero => hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
       const array = response.data.results
-      state.superheroes = array.filter(hasNoImage)
+      state.superheroes = array.filter(state.hasNoImage)
       state.attribution = response.attributionHTML
     },
     setLoading(state, set) {
@@ -56,9 +55,7 @@ export default new Vuex.Store({
       state.offset += amount
     },
     addHeroes(state, response) {
-      // filter out any heroes that don't have an image
-      const hasNoImage = hero => hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
-      const array = response.data.results.filter(hasNoImage)
+      const array = response.data.results.filter(state.hasNoImage)
       state.superheroes = state.superheroes.concat(array)
     }
   }
