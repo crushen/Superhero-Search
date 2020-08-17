@@ -39,7 +39,9 @@ export default new Vuex.Store({
   },
   mutations: {
     setSuperheroes(state, response) {
-      state.superheroes = response.data.results
+      const array = response.data.results
+      // filter out any heroes that don't have an image
+      state.superheroes = array.filter(hero => hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available')
       state.attribution = response.attributionHTML
     },
     setLoading(state, set) {
@@ -53,7 +55,9 @@ export default new Vuex.Store({
       state.offset += amount
     },
     addHeroes(state, response) {
-      state.superheroes = state.superheroes.concat(response.data.results)
+      // filter out any heroes that don't have an image
+      const array = response.data.results.filter(hero => hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available')
+      state.superheroes = state.superheroes.concat(array)
     }
   }
 })
