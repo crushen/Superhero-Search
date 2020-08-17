@@ -16,12 +16,23 @@ export default new Vuex.Store({
   },
   actions: {
     async getSuperheroes({commit, state}) {
-      commit('setLoading')
+      commit('setLoading', true)
+      await Axios
+        .get(`${db.url}/characters?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${state.limit}`)
+        .then(response => {
+          commit('setSuperheroes', response.data)
+          commit('setLoading', false)
+        })
+        .catch(error => commit('setError', error))
+    },
+    async getMoreHeroes({commit, state}) {
+      commit('setLoading', true)
+      commit('setOffset', 10)
       await Axios
         .get(`${db.url}/characters?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${state.limit}&offset=${state.offset}`)
         .then(response => {
-          commit('setSuperheroes', response.data)
-          commit('removeLoading')
+          commit('setLoading', false)
+          commit('addHeroes', response.data)
         })
         .catch(error => commit('setError', error))
     }
@@ -31,15 +42,18 @@ export default new Vuex.Store({
       state.superheroes = response.data.results
       state.attribution = response.attributionHTML
     },
-    setLoading(state) {
-      state.loading = true
-    },
-    removeLoading(state) {
-      state.loading = false
+    setLoading(state, set) {
+      state.loading = set
     },
     setError(state, error) {
       state.error = error.message
       console.log(error)
+    },
+    setOffset(state, amount) {
+      state.offset += amount
+    },
+    addHeroes(state, response) {
+      state.superheroes = state.superheroes.concat(response.data.results)
     }
   }
 })

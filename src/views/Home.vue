@@ -4,7 +4,7 @@
       <p>...loading</p>
     </div>
 
-    <div v-else>
+    <div v-if="superheroes.length">
       <ul>
         <li
           v-for="hero in superheroes"
@@ -14,6 +14,10 @@
           <img :src="`${hero.thumbnail.path}.${hero.thumbnail.extension}`" alt="">
         </li>
       </ul>
+
+      <button @click="getMoreHeroes">
+        Show More
+      </button>
 
       <p v-html="attribution" />
     </div>
@@ -26,6 +30,11 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState(['superheroes', 'loading', 'attribution'])
+  },
+  methods: {
+    getMoreHeroes() {
+      this.$store.dispatch('getMoreHeroes')
+    }
   },
   mounted() {
     this.$store.dispatch('getSuperheroes')
