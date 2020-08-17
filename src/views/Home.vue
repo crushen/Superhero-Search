@@ -15,10 +15,6 @@
         </li>
       </ul>
 
-      <button @click="getMoreHeroes">
-        Show More
-      </button>
-
       <p v-html="attribution" />
     </div>
   </div>
@@ -32,12 +28,22 @@ export default {
     ...mapState(['superheroes', 'loading', 'attribution'])
   },
   methods: {
-    getMoreHeroes() {
-      this.$store.dispatch('getMoreHeroes')
+    scroll() {
+      // Infinite scroll - When user hits bottom of page, add 10 more cards
+      window.addEventListener('scroll', () => {
+        const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
+              pageHeight = document.documentElement.offsetHeight,
+              bottomOfWindow = currentScroll >= pageHeight;
+
+        if(bottomOfWindow) {
+          this.$store.dispatch('getMoreHeroes')
+        }
+      }) 
     }
   },
   mounted() {
     this.$store.dispatch('getSuperheroes')
+    this.scroll()
   }
 }
 </script>
