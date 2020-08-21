@@ -92,6 +92,7 @@ export default new Vuex.Store({
       }
     },
     setSearchResults(state, response) {
+      state.searchResults = []
       state.noScroll = false
       const array = response.data.results
       state.searchResults = array.filter(state.hasNoImage)
