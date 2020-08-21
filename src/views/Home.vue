@@ -1,50 +1,37 @@
 <template>
-  <div class="content">
-    <div v-if="loading">
+  <main class="content">
+    <section v-if="loading">
       <loader />
-    </div>
+    </section>
 
-    <div>
-      <label for="hero-search">Search</label>
-      <input
-        v-model="search"
-        type="search"
-        name="hero-search"
-        id="hero-search">
-    </div>
+    <section>
+      <div id="hero-search">
+        <label for="search">Search for your favorite hero to <br>find out their stats and background</label>
+        <div class="input">
+          <img src="@/assets/icons/search.svg" alt="">
+          <input
+            v-model="search"
+            id="search"
+            type="search"
+            autocomplete="off">
+        </div>
+      </div>
+    </section>
 
-    <div v-if="search">
-      <ul>
-        <li
-          v-for="hero in searchResults"
-          :key="hero.id">
-          
-          <hero-card :hero="hero" class="hero-card" />
-        </li>
-      </ul>
+    <section v-if="search">
+      <hero-list :list="searchResults" />
+    </section>
 
-      <p v-html="attribution" />
-    </div>
-
-    <div v-else>
-      <ul>
-        <li
-          v-for="hero in superheroes"
-          :key="hero.id">
-
-          <hero-card :hero="hero" class="hero-card" />
-        </li>
-      </ul>
-
-      <p v-html="attribution" />
-    </div>
-  </div>
+    <section v-else>
+      <hero-list :list="superheroes" />
+    </section>
+  </main>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import loader from '@/components/loaders/Dots'
-import heroCard from '@/components/cards/HeroCard'
+import heroList from '@/components/cards/CardList'
 
 export default {
   data() {
@@ -54,10 +41,10 @@ export default {
   },
   components: {
     loader,
-    heroCard
+    heroList
   },
   computed: {
-    ...mapState(['superheroes', 'searchResults', 'loading', 'attribution'])
+    ...mapState(['superheroes', 'searchResults', 'loading', 'attribution', 'noScroll'])
   },
   watch: {
     search(string) {
@@ -76,8 +63,8 @@ export default {
               pageHeight = document.documentElement.offsetHeight,
               bottomOfWindow = currentScroll >= pageHeight;
 
-        if(bottomOfWindow) {
-          this.$store.dispatch('getMoreHeroes')
+        if(bottomOfWindow && !this.noScroll) {
+          this.$store.dispatch('getMoreHeroes', this.search)
         }
       }) 
     }
@@ -89,8 +76,30 @@ export default {
 }
 </script>
 
-<style scoped>
-img {
-  width: 200px;
+<style lang="scss" scoped>
+#hero-search {
+  margin-top: 74px;
+
+  label {
+    width: 100%;
+    text-align: center;
+  }
+
+  .input {
+    position: relative;
+    margin-top: 16px;
+  }
+
+  img {
+    width: 24px;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+  }
+
+  input {
+    padding: 10px 16px 10px 40px;
+    box-sizing: border-box;
+  }
 }
 </style>
