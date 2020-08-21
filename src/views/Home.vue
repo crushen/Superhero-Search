@@ -42,7 +42,7 @@ export default {
     heroList
   },
   computed: {
-    ...mapState(['superheroes', 'searchResults', 'loading', 'attribution', 'noScroll'])
+    ...mapState(['superheroes', 'searchResults', 'loading', 'noScroll'])
   },
   watch: {
     search(string) {

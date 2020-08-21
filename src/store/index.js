@@ -12,7 +12,6 @@ export default new Vuex.Store({
     limit: 10,
     offset: 0,
     loading: true,
-    attribution: null,
     error: null,
     noScroll: false,
     hasNoImage: hero => hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
