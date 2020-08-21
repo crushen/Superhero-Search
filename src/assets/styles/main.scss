@@ -1,0 +1,91 @@
+// App
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background: $background;
+  color: $light-font;
+  font-family: 'Montserrat', sans-serif;
+}
+
+// Page
+.content {
+  width: 85%;
+  margin: auto;
+}
+
+.padding-top {
+  padding-top: 80px;
+}
+
+.padding-bottom {
+  padding-bottom: 80px;
+}
+
+// Headings & text
+@mixin font($size, $weight) {
+  font-size: $size;
+  font-weight: $weight;
+}
+
+.heading {
+  &.one { @include font(40px, 800) }
+
+  &.two { @include font(32px, 600) }
+
+  &.three { @include font(24px, 600) }
+
+  &.four { @include font(18px, 600) }
+
+  &.cursive {
+    font-family: 'Bangers', 'Montserrat', sans-serif;
+    letter-spacing: 3px;
+  }
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+// Buttons
+button.button {
+  padding: 16px;
+  @include font(18px, 600);
+  background: $accent;
+  border-radius: $border-radius;
+}
+
+// Components
+.hero-card {
+  margin-top: 24px;
+}
+
+// Forms
+button,
+input,
+optgroup,
+select,
+input,
+textarea,html input[type="button"],
+input[type="reset"],
+input[type="submit"],button[disabled],
+html input[disabled],button::-moz-focus-inner,
+input::-moz-focus-inner, input[type="checkbox"],
+input[type="radio"], input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button, input[type="search"], input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}

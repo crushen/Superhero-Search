@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="content">
     <div v-if="loading">
       <p>...loading</p>
     </div>
@@ -59,6 +59,8 @@ export default {
     search(string) {
       if(string) {
         this.$store.dispatch('searchHeroes', string)
+      } else {
+        this.$store.dispatch('getSuperheroes')
       }
     }
   },

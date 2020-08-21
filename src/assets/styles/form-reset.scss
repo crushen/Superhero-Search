@@ -1,0 +1,41 @@
+@import '@/assets/styles/form-reset-helpers.scss';
+
+input {
+  @extend %form-reset-input;
+}
+
+label {
+  @extend %form-reset-label;
+}
+
+select {
+  @extend %form-reset-select;
+}
+
+button {
+  @extend %form-reset-button;
+}
+
+textarea {
+  @extend %form-reset-textarea;
+}
+
+/* clears the 'X' from Internet Explorer */
+input[type=search]::-ms-clear {  display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal {  display: none; width : 0; height: 0; }
+
+/* clears the 'X' from Chrome */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+
+input {
+  background: white;
+  width: 100%;
+  color: $med-font;
+  font-weight: 600;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  border-radius: $border-radius;
+}
