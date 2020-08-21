@@ -8,6 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     superheroes: [],
+    searchResults: [],
     limit: 10,
     offset: 0,
     loading: true,
@@ -36,6 +37,16 @@ export default new Vuex.Store({
           commit('addHeroes', response.data)
         })
         .catch(error => commit('setError', error))
+    },
+    async searchHeroes({commit, state}, string) {
+      commit('setLoading', true)
+      await Axios 
+        .get(`${db.url}/characters?nameStartsWith=${string}&ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${state.limit}`)
+        .then(response => {
+          commit('setLoading', false)
+          commit('setSearchResults', response.data)
+        })
+        .catch(error => commit('setError', error))
     }
   },
   mutations: {
@@ -57,6 +68,10 @@ export default new Vuex.Store({
     addHeroes(state, response) {
       const array = response.data.results.filter(state.hasNoImage)
       state.superheroes = state.superheroes.concat(array)
+    },
+    setSearchResults(state, response) {
+      const array = response.data.results
+      state.searchResults = array.filter(state.hasNoImage)
     }
   }
 })

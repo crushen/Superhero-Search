@@ -4,7 +4,30 @@
       <p>...loading</p>
     </div>
 
-    <div v-if="superheroes.length">
+    <div>
+      <label for="hero-search">Search</label>
+      <input
+        v-model="search"
+        type="search"
+        name="hero-search"
+        id="hero-search">
+    </div>
+
+    <div v-if="search">
+      <ul>
+        <li
+          v-for="hero in searchResults"
+          :key="hero.id">
+          {{ hero.name }}
+
+          <img :src="`${hero.thumbnail.path}.${hero.thumbnail.extension}`" alt="">
+        </li>
+      </ul>
+
+      <p v-html="attribution" />
+    </div>
+
+    <div v-else>
       <ul>
         <li
           v-for="hero in superheroes"
@@ -24,8 +47,20 @@
 import { mapState } from 'vuex'
 
 export default {
+  data() {
+    return {
+      search: null
+    }
+  },
   computed: {
-    ...mapState(['superheroes', 'loading', 'attribution'])
+    ...mapState(['superheroes', 'searchResults', 'loading', 'attribution'])
+  },
+  watch: {
+    search(string) {
+      if(string) {
+        this.$store.dispatch('searchHeroes', string)
+      }
+    }
   },
   methods: {
     scroll() {
