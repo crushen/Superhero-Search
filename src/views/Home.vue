@@ -1,6 +1,8 @@
 <template>
   <div>
-    <loader v-if="loading" />
+    <transition name="fade">
+      <loader v-if="loading" />
+    </transition>
 
     <header class="content padding-top">
       <h1 class="heading one cursive">Superhero <span>Search</span></h1>
@@ -80,6 +82,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: 0.2s;
+}
+
 header {
   text-align: center;
 }
