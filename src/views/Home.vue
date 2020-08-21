@@ -1,8 +1,13 @@
 <template>
-  <main class="content">
+  <div>
     <loader v-if="loading" />
 
-    <section>
+    <header class="content padding-top">
+      <h1 class="heading one cursive">Superhero <span>Search</span></h1>
+      <h2 class="heading four">All of your favorite Marvel <br>heroes in one place.</h2>
+    </header>
+
+    <section class="content">
       <div id="hero-search">
         <label for="search">Search for your favorite hero to <br>find out their stats and background</label>
         <div class="input">
@@ -16,14 +21,14 @@
       </div>
     </section>
 
-    <section v-if="search">
+    <section v-if="search" class="content">
       <hero-list :list="searchResults" />
     </section>
 
-    <section v-else>
+    <section v-else class="content">
       <hero-list :list="superheroes" />
     </section>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -75,6 +80,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+header {
+  text-align: center;
+}
+
+.heading.one {
+  font-size: 56px;
+  
+  span {
+    display: block;
+  }
+}
+
+h2 {
+  margin-top: 24px;
+}
+
 #hero-search {
   margin-top: 74px;
 
