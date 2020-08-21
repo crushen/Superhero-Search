@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     superheroes: [],
     searchResults: [],
+    hero: null,
     limit: 10,
     offset: 0,
     loading: true,
@@ -60,10 +61,22 @@ export default new Vuex.Store({
           commit('setSearchResults', response.data)
         })
         .catch(error => commit('setError', error))
+    },
+    async getHero({commit, state}, id) {
+      commit('setLoading', true)
+      commit('clearHero')
+      await Axios 
+        .get(`${db.url}/characters/${id}?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${state.limit}`)
+        .then(response => {
+          commit('setLoading', false)
+          commit('setHero', response.data)
+        })
+        .catch(error => commit('setError', error))
     }
   },
   mutations: {
     setSuperheroes(state, response) {
+      state.superheroes = []
       state.noScroll = false
       const array = response.data.results
       state.superheroes = array.filter(state.hasNoImage)
@@ -90,6 +103,12 @@ export default new Vuex.Store({
       } else {
         state.noScroll = true
       }
+    },
+    setHero(state, response) {
+      state.hero = response.data.results[0]
+    },
+    clearHero(state) {
+      state.hero = null
     },
     setLoading(state, set) {
       state.loading = set
