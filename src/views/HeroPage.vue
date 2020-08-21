@@ -1,8 +1,26 @@
 <template>
-  <div v-if="hero">
-    <h1>{{ hero.name }}</h1>
+  <div v-if="hero.info">
+    <header class="content padding-top">
+      <h1>{{ hero.info.name }}</h1>
 
-    <p v-if="hero.description">{{ hero.description }}</p>
+      <img :src="`${hero.info.thumbnail.path}.${hero.info.thumbnail.extension}`" alt="">
+
+      <p v-if="hero.info.description">{{ hero.info.description }}</p>
+    </header>
+
+    <section
+      v-if="hero.comics.length"
+      class="comics content padding-bottom">
+      <h2>Comics</h2>
+
+      <ul>
+        <li
+          v-for="comic in hero.comics"
+          :key="comic.id">
+          <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -15,10 +33,19 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getHero', this.$route.params.id)
+    this.$store.dispatch('getComics', this.$route.params.id)
   }
 }
 </script>
 
 <style lang="scss" scoped>
 
+img {
+  width: 100%;
+  margin: 24px 0;
+}
+
+.comics {
+  margin-top: 40px;
+}
 </style>

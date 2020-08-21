@@ -9,13 +9,16 @@ export default new Vuex.Store({
   state: {
     superheroes: [],
     searchResults: [],
-    hero: null,
+    hero: {
+      info: null,
+      comics: []
+    },
     limit: 10,
     offset: 0,
     loading: true,
     error: null,
     noScroll: false,
-    hasNoImage: hero => hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
+    hasNoImage: element => element.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
   },
   actions: {
     async getSuperheroes({commit, state}) {
@@ -72,6 +75,17 @@ export default new Vuex.Store({
           commit('setHero', response.data)
         })
         .catch(error => commit('setError', error))
+    },
+    async getComics({commit, state}, id) {
+      commit('setLoading', true)
+      commit('clearHero')
+      await Axios 
+        .get(`${db.url}/characters/${id}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${state.limit}`)
+        .then(response => {
+          commit('setLoading', false)
+          commit('setComics', response.data)
+        })
+        .catch(error => commit('setError', error))
     }
   },
   mutations: {
@@ -106,10 +120,14 @@ export default new Vuex.Store({
       }
     },
     setHero(state, response) {
-      state.hero = response.data.results[0]
+      state.hero.info = response.data.results[0]
     },
     clearHero(state) {
-      state.hero = null
+      state.hero.info = null
+      state.hero.comics = []
+    },
+    setComics(state, response) {
+      state.hero.comics = response.data.results.filter(state.hasNoImage)
     },
     setLoading(state, set) {
       state.loading = set
