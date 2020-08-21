@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div v-if="loading">
-      <p>...loading</p>
+      <loader />
     </div>
 
     <div>
@@ -18,9 +18,8 @@
         <li
           v-for="hero in searchResults"
           :key="hero.id">
-          {{ hero.name }}
-
-          <img :src="`${hero.thumbnail.path}.${hero.thumbnail.extension}`" alt="">
+          
+          <hero-card :hero="hero" class="hero-card" />
         </li>
       </ul>
 
@@ -32,9 +31,8 @@
         <li
           v-for="hero in superheroes"
           :key="hero.id">
-          {{ hero.name }}
 
-          <img :src="`${hero.thumbnail.path}.${hero.thumbnail.extension}`" alt="">
+          <hero-card :hero="hero" class="hero-card" />
         </li>
       </ul>
 
@@ -45,12 +43,18 @@
 
 <script>
 import { mapState } from 'vuex'
+import loader from '@/components/loaders/Dots'
+import heroCard from '@/components/cards/HeroCard'
 
 export default {
   data() {
     return {
       search: null
     }
+  },
+  components: {
+    loader,
+    heroCard
   },
   computed: {
     ...mapState(['superheroes', 'searchResults', 'loading', 'attribution'])
