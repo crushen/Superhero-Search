@@ -1,8 +1,6 @@
 <template>
   <main class="content">
-    <section v-if="loading">
-      <loader />
-    </section>
+    <loader v-if="loading" />
 
     <section>
       <div id="hero-search">
