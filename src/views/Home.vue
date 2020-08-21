@@ -21,11 +21,11 @@
       </div>
     </section>
 
-    <section v-if="search" class="content">
+    <section v-if="search" class="content padding-bottom">
       <hero-list :list="searchResults" />
     </section>
 
-    <section v-else class="content">
+    <section v-else class="content padding-bottom">
       <hero-list :list="superheroes" />
     </section>
   </div>

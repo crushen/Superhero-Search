@@ -27,13 +27,14 @@ export default {
   position: relative;
   border-radius: $border-radius;
   background-position: center;
+  background-size: cover;
 
   .overlay {
     width: 100%;
     height: 100%;
     position: absolute;
     z-index: 0;
-    background: rgba($color: #031126, $alpha: 0.6);
+    background: rgba($color: $background, $alpha: 0.3);
     border-radius: $border-radius;
   }
 
