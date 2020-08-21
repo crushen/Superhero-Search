@@ -14,6 +14,7 @@ export default new Vuex.Store({
     loading: true,
     attribution: null,
     error: null,
+    noScroll: false,
     hasNoImage: hero => hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
   },
   actions: {
@@ -27,16 +28,29 @@ export default new Vuex.Store({
         })
         .catch(error => commit('setError', error))
     },
-    async getMoreHeroes({commit, state}) {
+    async getMoreHeroes({commit, state}, string) {
       commit('setLoading', true)
       commit('setOffset', 10)
-      await Axios
+      // If all heroes are being displayed
+      if(!state.searchResults.length) {
+        await Axios
         .get(`${db.url}/characters?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${state.limit}&offset=${state.offset}`)
         .then(response => {
           commit('setLoading', false)
           commit('addHeroes', response.data)
         })
         .catch(error => commit('setError', error))
+      } else {
+        // If search results are being displayed
+        await Axios 
+        .get(`${db.url}/characters?nameStartsWith=${string}&ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${state.limit}&offset=${state.offset}`)
+        .then(response => {
+          commit('setLoading', false)
+          commit('addSearchResults', response.data)
+        })
+        .catch(error => commit('setError', error))
+      }
+
     },
     async searchHeroes({commit, state}, string) {
       commit('setLoading', true)
@@ -51,9 +65,32 @@ export default new Vuex.Store({
   },
   mutations: {
     setSuperheroes(state, response) {
+      state.noScroll = false
       const array = response.data.results
       state.superheroes = array.filter(state.hasNoImage)
-      state.attribution = response.attributionHTML
+    },
+    addHeroes(state, response) {
+      const array = response.data.results.filter(state.hasNoImage)
+      // If response has any data, concat to array
+      if(array.length) {
+        state.superheroes = state.superheroes.concat(array)
+      } else {
+        // Otherwise, stop getting more data when scrolling to bottom of page
+        state.noScroll = true
+      }
+    },
+    setSearchResults(state, response) {
+      state.noScroll = false
+      const array = response.data.results
+      state.searchResults = array.filter(state.hasNoImage)
+    },
+    addSearchResults(state, response) {
+      const array = response.data.results.filter(state.hasNoImage)
+      if(array.length) {
+        state.searchResults = state.searchResults.concat(array)
+      } else {
+        state.noScroll = true
+      }
     },
     setLoading(state, set) {
       state.loading = set
@@ -64,14 +101,6 @@ export default new Vuex.Store({
     },
     setOffset(state, amount) {
       state.offset += amount
-    },
-    addHeroes(state, response) {
-      const array = response.data.results.filter(state.hasNoImage)
-      state.superheroes = state.superheroes.concat(array)
-    },
-    setSearchResults(state, response) {
-      const array = response.data.results
-      state.searchResults = array.filter(state.hasNoImage)
     }
   }
 })
