@@ -25,6 +25,12 @@
             @click.native="closeNav">
             Home
           </router-link>
+
+          <router-link 
+            :to="{ name: 'Superheroes' }"
+            @click.native="closeNav">
+            Superheroes A-Z
+          </router-link>
         </nav>
       </div>
     </transition>

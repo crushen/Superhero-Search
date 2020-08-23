@@ -10,6 +10,11 @@ Vue.use(VueRouter)
     component: () => import('@/views/Home.vue')
   },
   {
+    path: '/superheroes',
+    name: 'Superheroes',
+    component: () => import('@/views/Superheroes.vue')
+  },
+  {
     path: '/heroes/:name/:id',
     name: 'HeroPage',
     component: () => import('@/views/HeroPage.vue')
