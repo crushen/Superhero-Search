@@ -49,14 +49,14 @@ export default {
     heroList
   },
   computed: {
-    ...mapState(['superheroes', 'searchResults', 'loading', 'noScroll'])
+    ...mapState('superheroes', ['superheroes', 'searchResults', 'loading', 'noScroll'])
   },
   watch: {
     search(string) {
       if(string) {
-        this.$store.dispatch('searchHeroes', string)
+        this.$store.dispatch('superheroes/searchHeroes', string)
       } else {
-        this.$store.dispatch('getSuperheroes')
+        this.$store.dispatch('superheroes/getSuperheroes')
       }
     }
   },
@@ -69,13 +69,13 @@ export default {
               bottomOfWindow = currentScroll >= pageHeight;
 
         if(bottomOfWindow && !this.noScroll) {
-          this.$store.dispatch('getMoreHeroes', this.search)
+          this.$store.dispatch('superheroes/getMoreHeroes', this.search)
         }
       }) 
     }
   },
   mounted() {
-    this.$store.dispatch('getSuperheroes')
+    this.$store.dispatch('superheroes/getSuperheroes')
     this.scroll()
   }
 }

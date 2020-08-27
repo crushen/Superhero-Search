@@ -29,11 +29,11 @@ import { mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['hero'])
+    ...mapState('superheroes', ['hero'])
   },
   mounted() {
-    this.$store.dispatch('getHero', this.$route.params.id)
-    this.$store.dispatch('getComics', this.$route.params.id)
+    this.$store.dispatch('superheroes/getHero', this.$route.params.id)
+    this.$store.dispatch('superheroes/getComics', this.$route.params.id)
   }
 }
 </script>
