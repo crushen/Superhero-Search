@@ -28,8 +28,8 @@ export default {
         await Axios
         .get(`${db.url}/characters?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${100}&offset=${state.heroes.length}`)
         .then(response => {
-          commit('setLoading', false)
           commit('sortHeroes', response.data.data.results)
+          commit('setLoading', false)
         })
         .catch(error => commit('setError', error))
     }
@@ -87,9 +87,6 @@ export default {
     setError(state, error) {
       state.error = error.message
       console.log(error)
-    },
-    setOffset(state, amount) {
-      state.offset += amount
     }
   }
 }
