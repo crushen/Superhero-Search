@@ -1,14 +1,18 @@
 <template>
-  <div v-if="collections.length">
+  <div>
+    <transition name="fade">
+      <loader v-if="loading" />
+    </transition>
+
     <header class="content padding-top">
       <h1 class="heading one cursive">Superheroes A-Z</h1>
     </header>
 
-    <section class="content">
+    <section v-if="collections.length" class="content">
       <ul class="collection-wrapper">
         <li
           v-for="collection in collections"
-          :key="collection.letter"
+          :key="collection.superheroes[0].name"
           class="collection">
           <h3>{{ collection.letter }}</h3>
           <ul class="inner">
@@ -27,8 +31,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import loader from '@/components/loaders/Dots'
 
 export default {
+  components: {
+    loader
+  },
   computed: {
     ...mapState('superheroesAtoZ', ['collections', 'loading', 'noScroll'])
   },
