@@ -42,6 +42,8 @@ export default {
         state.noScroll = true
       } else {
         while(array.length) {
+          // filter heroes that don't have images
+          array = array.filter(state.hasNoImage)
           // remove first item from array and get first letter
           const hero = array.shift(),
                 letter = hero.name.slice(0, 1);
