@@ -19,8 +19,10 @@
             <li
               v-for="hero in collection.superheroes"
               :key="hero.id">
+              <router-link :to="{ name: 'HeroPage', params: { name: slugify(hero.name), id: hero.id} }">
                 {{ hero.name }}
                 <img class="icon" src="@/assets/icons/arrow-right.svg" alt="">
+              </router-link>
             </li>
           </ul>
         </li>
@@ -52,10 +54,30 @@ export default {
           this.$store.dispatch('superheroesAtoZ/getMoreHeroes')
         }
       }) 
+    },
+    slugify(str) {
+      str = str.replace(/^\s+|\s+$/g, '')
+      // Make the string lowercase
+      str = str.toLowerCase()
+      // Remove accents, swap ñ for n, etc
+      var from = "ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa·/_,:;"
+      var to   = "AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa------"
+      for (var i=0, l=from.length ; i<l ; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i))
+      }
+      // Remove invalid chars
+      str = str.replace(/[^a-z0-9 -]/g, '') 
+      // Collapse whitespace and replace by -
+      .replace(/\s+/g, '-') 
+      // Collapse dashes
+      .replace(/-+/g, '-')
+      return str
     }
   },
   mounted() {
-    this.$store.dispatch('superheroesAtoZ/getSuperheroes')
+    if(!this.collections.length) {
+      this.$store.dispatch('superheroesAtoZ/getSuperheroes')
+    }
     this.scroll()
   }
 }
@@ -86,10 +108,6 @@ export default {
 
     li {
       padding: 2px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
 
       &:not(:first-of-type) {
         margin-top: 8px;
@@ -98,6 +116,13 @@ export default {
       &:not(:last-of-type) {
         border-bottom: 1px solid lighten($color: $background, $amount: 7%);
         padding: 2px 2px 10px 2px;
+      }
+
+      a {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
 
       .icon {
