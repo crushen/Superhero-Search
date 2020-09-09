@@ -14,6 +14,7 @@ export default {
   },
   actions: {
     async getSuperheroes({commit}) {
+      commit('clearState')
       commit('setLoading', true)
       await Axios
         .get(`${db.url}/characters?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${100}`)
@@ -25,6 +26,7 @@ export default {
     },
     async getMoreHeroes({commit, state}) {
       commit('setOffset', 100)
+      commit('setLoading', true)
         await Axios
         .get(`${db.url}/characters?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${100}&offset=${state.offset}`)
         .then(response => {
@@ -65,6 +67,10 @@ export default {
           }
         }
       }
+    },
+    clearState(state) {
+      state.collections = []
+      state.offset = 0
     },
     setLoading(state, set) {
       state.loading = set
