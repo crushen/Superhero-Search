@@ -28,7 +28,8 @@
     </section>
 
     <section v-else class="content padding-bottom">
-      <hero-list :list="superheroes" />
+      <h3 class="heading two">Featured Heroes</h3>
+      <hero-list :list="featuredHeroes" />
     </section>
   </div>
 </template>
@@ -49,7 +50,7 @@ export default {
     heroList
   },
   computed: {
-    ...mapState('superheroes', ['superheroes', 'searchResults', 'loading', 'noScroll'])
+    ...mapState('home', ['featuredHeroes', 'loading'])
   },
   watch: {
     search(string) {
@@ -61,22 +62,11 @@ export default {
     }
   },
   methods: {
-    scroll() {
-      // Infinite scroll - When user hits bottom of page, add 10 more cards
-      window.addEventListener('scroll', () => {
-        const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
-              pageHeight = document.documentElement.offsetHeight,
-              bottomOfWindow = currentScroll >= pageHeight;
-
-        if(bottomOfWindow && !this.noScroll) {
-          this.$store.dispatch('superheroes/getMoreHeroes', this.search)
-        }
-      }) 
-    }
   },
   mounted() {
-    this.$store.dispatch('superheroes/getSuperheroes')
-    this.scroll()
+    if(!this.featuredHeroes.length) {
+      this.$store.dispatch('home/getHero', 1009165)
+    }
   }
 }
 </script>
@@ -106,6 +96,10 @@ header {
 
 h2 {
   margin-top: 24px;
+}
+
+h3 {
+  margin-top: 48px;
 }
 
 #hero-search {
