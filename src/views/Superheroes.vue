@@ -43,17 +43,15 @@ export default {
     ...mapState('superheroesAtoZ', ['collections', 'loading', 'noScroll'])
   },
   methods: {
-    scroll() {
-      // Infinite scroll - When user hits bottom of page, add 10 more cards
-      window.addEventListener('scroll', () => {
-        const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
-              pageHeight = document.documentElement.offsetHeight,
-              bottomOfWindow = currentScroll >= pageHeight;
-
-        if(bottomOfWindow && !this.noScroll) {
-          this.$store.dispatch('superheroesAtoZ/getMoreHeroes')
-        }
-      }) 
+    getMoreHeroes() {
+      // fetch more data when user scrolls to bottom of page
+      const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
+            pageHeight = document.documentElement.offsetHeight,
+            bottomOfWindow = currentScroll >= pageHeight;
+      // if no more data, don't dispatch 
+      if(bottomOfWindow && !this.noScroll) {
+        this.$store.dispatch('superheroesAtoZ/getMoreHeroes')
+      }
     },
     slugify(str) {
       str = str.replace(/^\s+|\s+$/g, '')
@@ -78,7 +76,11 @@ export default {
     if(!this.collections.length) {
       this.$store.dispatch('superheroesAtoZ/getSuperheroes')
     }
-    this.scroll()
+    window.addEventListener('scroll', this.getMoreHeroes)
+  },
+  beforeRouteLeave (to, from, next) {
+    window.removeEventListener('scroll', this.getMoreHeroes)
+    next()
   }
 }
 </script>
