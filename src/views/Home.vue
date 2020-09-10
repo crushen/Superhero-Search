@@ -50,18 +50,27 @@ export default {
     heroList
   },
   computed: {
-    ...mapState('home', ['featuredHeroes', 'loading'])
+    ...mapState('home', ['featuredHeroes', 'searchResults', 'loading', 'noScroll'])
   },
   watch: {
     search(string) {
       if(string) {
-        this.$store.dispatch('superheroes/searchHeroes', string)
+        this.$store.dispatch('home/searchHeroes', string)
+        window.addEventListener('scroll', this.getMoreHeroes)
       } else {
-        this.$store.dispatch('superheroes/getSuperheroes')
+        window.removeEventListener('scroll', this.getMoreHeroes)
       }
     }
   },
   methods: {
+    getMoreHeroes() {
+      const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
+            pageHeight = document.documentElement.offsetHeight,
+            bottomOfWindow = currentScroll >= pageHeight;
+      if(bottomOfWindow && !this.noScroll) {
+        this.$store.dispatch('home/getMoreHeroes', this.search)
+      }
+    }
   },
   mounted() {
     if(!this.featuredHeroes.length) {
