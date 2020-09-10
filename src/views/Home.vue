@@ -74,7 +74,10 @@ export default {
   },
   mounted() {
     if(!this.featuredHeroes.length) {
-      this.$store.dispatch('home/getHero', 1009165)
+      this.$store.dispatch('home/getHero', 1009165) // avengers
+      this.$store.dispatch('home/getHero', 1010338) // captain marvel
+      this.$store.dispatch('home/getHero', 1009368) // iron man 
+      this.$store.dispatch('home/getHero', 1017603) // spider gwen
     }
   }
 }
