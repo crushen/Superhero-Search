@@ -12,18 +12,21 @@
     <section class="content">
       <div id="hero-search">
         <label for="search">Search for your favorite hero to <br>find out their stats and background</label>
-        <div class="input">
-          <img src="@/assets/icons/search.svg" alt="">
-          <input
-            v-model="search"
-            id="search"
-            type="search"
-            autocomplete="off">
+        <div class="search">
+          <div class="input">
+            <img src="@/assets/icons/search.svg" alt="">
+            <input
+              v-model="search"
+              id="search"
+              type="search"
+              autocomplete="off">
+          </div>
+          <button @click="submitSearch">Search</button>
         </div>
       </div>
     </section>
 
-    <section v-if="search" class="content padding-bottom">
+    <section v-if="searchResults.length" class="content padding-bottom">
       <hero-list :list="searchResults" />
     </section>
 
@@ -54,15 +57,17 @@ export default {
   },
   watch: {
     search(string) {
-      if(string) {
-        this.$store.dispatch('home/searchHeroes', string)
-        window.addEventListener('scroll', this.getMoreHeroes)
-      } else {
+      if(!string) {
+        this.$store.commit('home/clearSearchResults')
         window.removeEventListener('scroll', this.getMoreHeroes)
       }
     }
   },
   methods: {
+    submitSearch() {
+      this.$store.dispatch('home/searchHeroes', this.search)
+      window.addEventListener('scroll', this.getMoreHeroes)
+    },
     getMoreHeroes() {
       const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
             pageHeight = document.documentElement.offsetHeight,
@@ -84,6 +89,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/variables.scss';
+
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
@@ -122,21 +129,35 @@ h3 {
     text-align: center;
   }
 
-  .input {
-    position: relative;
+  .search {
     margin-top: 16px;
-  }
+    display: flex;
+    align-items: center;
 
-  img {
-    width: 24px;
-    position: absolute;
-    top: 6px;
-    left: 6px;
-  }
+    .input {
+      position: relative;
+      
 
-  input {
-    padding: 10px 16px 10px 40px;
-    box-sizing: border-box;
+      img {
+        width: 24px;
+        position: absolute;
+        top: 6px;
+        left: 6px;
+      }
+
+      input {
+        padding: 10px 16px 10px 40px;
+        box-sizing: border-box;
+      }
+    }
+
+    button {
+      width: 100px;
+      height: 39px;
+      background: $accent;
+      border-radius: $border-radius;
+      margin-left: 8px;
+    }
   }
 }
 </style>

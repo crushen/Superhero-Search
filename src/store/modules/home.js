@@ -67,6 +67,9 @@ export default {
         state.noScroll = true
       }
     },
+    clearSearchResults(state) {
+      state.searchResults = []
+    },
     setLoading(state, set) {
       state.loading = set
     },
