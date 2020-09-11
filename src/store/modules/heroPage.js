@@ -20,7 +20,7 @@ export default {
         .get(`${db.url}/characters/${id}?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}`)
         .then(response => {
           commit('setLoading', false)
-          commit('setHero', response.data)
+          commit('setHero', response.data.data.results)
         })
         .catch(error => commit('setError', error))
     },
@@ -31,21 +31,21 @@ export default {
         .get(`${db.url}/characters/${id}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}`)
         .then(response => {
           commit('setLoading', false)
-          commit('setComics', response.data)
+          commit('setComics', response.data.data.results)
         })
         .catch(error => commit('setError', error))
     },
   },
   mutations: {
     setHero(state, response) {
-      state.hero.info = response.data.results[0]
+      state.hero.info = response[0]
     },
     clearHero(state) {
       state.hero.info = null
       state.hero.comics = []
     },
     setComics(state, response) {
-      state.hero.comics = response.data.results.filter(state.hasNoImage)
+      state.hero.comics = response.filter(state.hasNoImage)
     },
     setLoading(state, set) {
       state.loading = set
