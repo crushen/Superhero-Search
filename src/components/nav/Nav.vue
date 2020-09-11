@@ -29,7 +29,7 @@
           <router-link 
             :to="{ name: 'Superheroes' }"
             @click.native="closeNav">
-            Superheroes A-Z
+            Superheroes
           </router-link>
         </nav>
       </div>

@@ -5,7 +5,7 @@
     </transition>
 
     <header class="content padding-top">
-      <h1 class="heading one cursive">Superheroes A-Z</h1>
+      <h1 class="heading one cursive">Superheroes</h1>
     </header>
 
     <section v-if="collections.length" class="content">
