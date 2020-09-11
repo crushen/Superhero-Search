@@ -68,6 +68,46 @@ button.button {
   margin-top: 24px;
 }
 
+.search-container {
+  margin-top: 74px;
+
+  label {
+    width: 100%;
+    text-align: center;
+  }
+
+  .search {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+
+    .input {
+      position: relative;
+      
+
+      img {
+        width: 24px;
+        position: absolute;
+        top: 6px;
+        left: 6px;
+      }
+
+      input {
+        padding: 10px 16px 10px 40px;
+        box-sizing: border-box;
+      }
+    }
+
+    button {
+      width: 100px;
+      height: 39px;
+      background: $accent;
+      border-radius: $border-radius;
+      margin-left: 8px;
+    }
+  }
+}
+
 // Forms
 button,
 input,

@@ -10,8 +10,8 @@
     </header>
 
     <section class="content">
-      <div id="hero-search">
-        <label for="search">Search for your favorite hero to <br>find out their stats and background</label>
+      <div id="hero-search" class="search-container">
+        <label for="hero-search">Search for your favorite hero to <br>find out their stats and background</label>
         <div class="search">
           <div class="input">
             <img src="@/assets/icons/search.svg" alt="">
@@ -120,45 +120,5 @@ h2 {
 
 h3 {
   margin-top: 48px;
-}
-
-#hero-search {
-  margin-top: 74px;
-
-  label {
-    width: 100%;
-    text-align: center;
-  }
-
-  .search {
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
-
-    .input {
-      position: relative;
-      
-
-      img {
-        width: 24px;
-        position: absolute;
-        top: 6px;
-        left: 6px;
-      }
-
-      input {
-        padding: 10px 16px 10px 40px;
-        box-sizing: border-box;
-      }
-    }
-
-    button {
-      width: 100px;
-      height: 39px;
-      background: $accent;
-      border-radius: $border-radius;
-      margin-left: 8px;
-    }
-  }
 }
 </style>
