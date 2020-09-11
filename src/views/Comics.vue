@@ -66,7 +66,16 @@ export default {
   },
   methods: {
     submitSearch() {
-      this.$store.dispatch('comics/searchComics', parseInt(this.search))
+      // get year from search
+      const year = this.search.replace(/\D/g, '')
+      // get words & hyphenated words from search, and then join to make string
+      let title = this.search.match(/\b[a-zA-Z'-]+\b/g)
+      if(title) { title = title.join(' ') }
+      
+      this.$store.dispatch('comics/searchComics', {
+        year: year, 
+        title: title
+      })
     }
   },
   mounted() {

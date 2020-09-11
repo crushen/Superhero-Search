@@ -14,17 +14,27 @@ export default {
     async getComics({commit}) {
       commit('setLoading', true)
       await Axios
-        .get(`${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${100}`)
+        .get(`${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}`)
         .then(response => {
           commit('setComics', response.data.data.results)
           commit('setLoading', false)
         })
         .catch(error => commit('setError', error))
     },
-    async searchComics({commit}, year) {
+    async searchComics({commit}, {year, title}) {
+      let url = null
+      // set URL depending on whether user has searched for year, title or both
+      if(year && !title) {
+        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&startYear=${year}`
+      } else if(title && !year) {
+        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&titleStartsWith=${title}`
+      } else {
+        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&startYear=${year}&titleStartsWith=${title}`
+      }
+
       commit('setLoading', true)
       await Axios
-        .get(`${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${100}&startYear=${year}`)
+        .get(url)
         .then(response => {
           commit('setSearchResults', response.data.data.results)
           commit('setLoading', false)
