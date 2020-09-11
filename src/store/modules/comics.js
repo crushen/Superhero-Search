@@ -4,25 +4,15 @@ import { db } from '@/db'
 export default {
   namespaced: true,
   state: {
-    comics: [],
     searchResults: [],
     comic: null,
+    offset: 15,
     loading: false,
     error: null,
     noScroll: false,
     hasNoImage: element => element.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
   },
   actions: {
-    async getComics({commit}) {
-      commit('setLoading', true)
-      await Axios
-        .get(`${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}`)
-        .then(response => {
-          commit('setComics', response.data.data.results)
-          commit('setLoading', false)
-        })
-        .catch(error => commit('setError', error))
-    },
     async searchComics({commit}, {year, title}) {
       let url = null
       // set URL depending on whether user has searched for year, title or both
@@ -33,7 +23,7 @@ export default {
       } else {
         url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&startYear=${year}&titleStartsWith=${title}`
       }
-
+      commit('clearSearchResults')
       commit('setLoading', true)
       await Axios
         .get(url)
@@ -46,16 +36,27 @@ export default {
           commit('setLoading', false)
         })
     },
-    // async getMoreComics({commit, state}) {
-    //   commit('setLoading', true)
-    //     await Axios
-    //     .get(`${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${100}&offset=${state.comics.length}`)
-    //     .then(response => {
-    //       commit('addComics', response.data.data.results)
-    //       commit('setLoading', false)
-    //     })
-    //     .catch(error => commit('setError', error))
-    // },
+    async getMoreComics({commit, state}, {year, title}) {
+      let url = null
+      // set URL depending on whether user has searched for year, title or both
+      if(year && !title) {
+        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&startYear=${year}&offset=${state.offset}`
+      } else if(title && !year) {
+        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&titleStartsWith=${title}&offset=${state.offset}`
+      } else {
+        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&startYear=${year}&titleStartsWith=${title}&offset=${state.offset}`
+      }
+
+      commit('setLoading', true)
+      commit('setOffset', 15)
+        await Axios
+        .get(url)
+        .then(response => {
+          commit('addSearchResults', response.data.data.results)
+          commit('setLoading', false)
+        })
+        .catch(error => commit('setError', error))
+    },
     async getComic({commit}, id) {
       commit('setLoading', true)
       commit('clearComic')
@@ -69,26 +70,26 @@ export default {
     },
   },
   mutations: {
-    setComics(state, array) {
-      array = array.filter(state.hasNoImage)
-
-      if(!state.comics.length) {
-        state.comics = array
+    setSearchResults(state, response) {
+      state.searchResults = []
+      state.noScroll = false
+      state.offset = 15
+      state.searchResults = response.filter(state.hasNoImage)
+    },
+    setOffset(state, amount) {
+      state.offset += amount
+    },
+    addSearchResults(state, response) {
+      const array = response.filter(state.hasNoImage)
+      if(array.length) {
+        state.searchResults = state.searchResults.concat(array)
       } else {
-        state.comics = state.comics.concat(array)
+        state.noScroll = true
       }
     },
-    setSearchResults(state, array) {
+    clearSearchResults(state) {
       state.searchResults = []
       state.error = null
-      // state.noScroll = false
-      // state.offset = 15
-      array = array.filter(state.hasNoImage)
-      state.searchResults = array
-
-      if(!array.length) {
-        state.error = 'Error'
-      }
     },
     setComic(state, response) {
       state.comic = response[0]

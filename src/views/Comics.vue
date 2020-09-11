@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="content">
+    <div class="content padding-bottom">
       <ul v-if="searchResults.length">
         <li
           v-for="comic in searchResults"
@@ -58,6 +58,14 @@ export default {
   computed: {
     ...mapState('comics', ['comics', 'searchResults', 'loading', 'error'])
   },
+  watch: {
+    search(string) {
+      if(!string) {
+        this.$store.commit('comics/clearSearchResults')
+        window.removeEventListener('scroll', this.getMoreComics)
+      }
+    }
+  },
   methods: {
     submitSearch() {
       // get year from search
@@ -70,10 +78,29 @@ export default {
         year: year, 
         title: title
       })
+
+      window.addEventListener('scroll', this.getMoreComics)
+    },
+    getMoreComics() {
+      const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
+            pageHeight = document.documentElement.offsetHeight,
+            bottomOfWindow = currentScroll >= pageHeight;
+      if(bottomOfWindow && !this.noScroll) {
+        // get year from search
+        const year = this.search.replace(/\D/g, '')
+        // get words & hyphenated words from search, and then join to make string
+        let title = this.search.match(/\b[a-zA-Z'-]+\b/g)
+        if(title) { title = title.join(' ') }
+        
+        this.$store.dispatch('comics/getMoreComics', {
+          year: year, 
+          title: title
+        })
+      }
     }
   },
   mounted() {
-    //this.$store.dispatch('comics/getComics')
+    this.$store.commit('comics/clearSearchResults')
   }
 }
 </script>
@@ -88,6 +115,4 @@ li {
     width: 100%;
   }
 }
-
-
 </style>
