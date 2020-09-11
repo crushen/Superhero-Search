@@ -18,6 +18,11 @@ Vue.use(VueRouter)
     path: '/heroes/:name/:id',
     name: 'HeroPage',
     component: () => import('@/views/HeroPage.vue')
+  },
+  {
+    path: '/comics',
+    name: 'Comics',
+    component: () => import('@/views/Comics.vue')
   }
 ]
 
