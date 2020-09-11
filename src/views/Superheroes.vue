@@ -19,7 +19,7 @@
             <li
               v-for="hero in collection.superheroes"
               :key="hero.id">
-              <router-link :to="{ name: 'HeroPage', params: { name: slugify(hero.name), id: hero.id} }">
+              <router-link :to="{ name: 'Hero', params: { name: slugify(hero.name), id: hero.id} }">
                 {{ hero.name }}
                 <img class="icon" src="@/assets/icons/arrow-right.svg" alt="">
               </router-link>
