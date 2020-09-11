@@ -1,0 +1,84 @@
+<template>
+  <div>
+    <transition name="fade">
+      <loader v-if="loading" />
+    </transition>
+
+    <header class="content padding-top">
+      <h1 class="heading one cursive">Comics</h1>
+    </header>
+
+    <div id="comic-search" class="search-container content">
+      <label for="comic-search">Type in a comic name and / or<br> release year to search for a comic.</label>
+      <div class="search">
+        <div class="input">
+          <img src="@/assets/icons/search.svg" alt="">
+          <input
+            v-model="search"
+            id="search"
+            type="search"
+            autocomplete="off">
+        </div>
+        <button @click="submitSearch">Search</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <ul v-if="searchResults.length">
+        <li
+          v-for="comic in searchResults"
+          :key="comic.id">
+          {{ comic.title }}
+        </li>
+      </ul>
+
+      <p v-if="error">
+        Sorry, no search results found.<br>Try searching a release year or comic book title!
+      </p>
+    </div>
+
+    <!-- <ul class="content">
+      <li
+        v-for="comic in comics"
+        :key="comic.id">
+        <p><b>{{ comic.title }}</b></p>
+        <p>{{ new Date(comic.dates[0].date) }}</p>
+      </li>
+    </ul> -->
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+import loader from '@/components/loaders/Dots'
+
+export default {
+  components: {
+    loader
+  },
+  data() {
+    return {
+      search: null
+    }
+  },
+  computed: {
+    ...mapState('comics', ['comics', 'searchResults', 'loading', 'error'])
+  },
+  methods: {
+    submitSearch() {
+      this.$store.dispatch('comics/searchComics', parseInt(this.search))
+    }
+  },
+  mounted() {
+    //this.$store.dispatch('comics/getComics')
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import '@/assets/styles/variables.scss';
+
+li {
+  margin-top: 24px;
+}
+</style>
