@@ -6,6 +6,7 @@ export default {
   state: {
     comics: [],
     searchResults: [],
+    comic: null,
     loading: false,
     error: null,
     noScroll: false,
@@ -44,7 +45,7 @@ export default {
           commit('setError', error)
           commit('setLoading', false)
         })
-    }
+    },
     // async getMoreComics({commit, state}) {
     //   commit('setLoading', true)
     //     await Axios
@@ -54,7 +55,18 @@ export default {
     //       commit('setLoading', false)
     //     })
     //     .catch(error => commit('setError', error))
-    // }
+    // },
+    async getComic({commit}, id) {
+      commit('setLoading', true)
+      commit('clearComic')
+      await Axios 
+        .get(`${db.url}/comics/${id}?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}`)
+        .then(response => {
+          commit('setLoading', false)
+          commit('setComic', response.data.data.results)
+        })
+        .catch(error => commit('setError', error))
+    },
   },
   mutations: {
     setComics(state, array) {
@@ -77,6 +89,12 @@ export default {
       if(!array.length) {
         state.error = 'Error'
       }
+    },
+    setComic(state, response) {
+      state.comic = response[0]
+    },
+    clearComic(state) {
+      state.comic = null
     },
     setLoading(state, set) {
       state.loading = set

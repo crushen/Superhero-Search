@@ -29,6 +29,9 @@
           v-for="comic in searchResults"
           :key="comic.id">
           <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
+          <router-link :to="{ name: 'Comic', params: { id: comic.id } }">
+            {{ comic.title }}
+          </router-link>
         </li>
       </ul>
 
@@ -36,15 +39,6 @@
         Sorry, no search results found.<br>Try searching a release year or comic book title!
       </p>
     </div>
-
-    <!-- <ul class="content">
-      <li
-        v-for="comic in comics"
-        :key="comic.id">
-        <p><b>{{ comic.title }}</b></p>
-        <p>{{ new Date(comic.dates[0].date) }}</p>
-      </li>
-    </ul> -->
   </div>
 </template>
 
