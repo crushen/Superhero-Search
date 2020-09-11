@@ -6,7 +6,7 @@
     <div class="body">
       <div class="name">
         <router-link
-          :to="{ name: 'HeroPage', params: { name: slugify(hero.name), id: hero.id} }">
+          :to="{ name: 'Hero', params: { name: slugify(hero.name), id: hero.id} }">
           {{ hero.name }}
         </router-link>
       </div>

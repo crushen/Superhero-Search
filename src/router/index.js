@@ -15,14 +15,19 @@ Vue.use(VueRouter)
     component: () => import('@/views/Superheroes.vue')
   },
   {
-    path: '/heroes/:name/:id',
-    name: 'HeroPage',
-    component: () => import('@/views/HeroPage.vue')
+    path: '/superheroes/:name/:id',
+    name: 'Hero',
+    component: () => import('@/views/Hero.vue')
   },
   {
     path: '/comics',
     name: 'Comics',
     component: () => import('@/views/Comics.vue')
+  },
+  {
+    path: '/comics/:id',
+    name: 'Comic',
+    component: () => import('@/views/Comic.vue')
   }
 ]
 
