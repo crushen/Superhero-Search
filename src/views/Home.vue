@@ -78,6 +78,7 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit('home/clearSearchResults')
     if(!this.featuredHeroes.length) {
       this.$store.dispatch('home/getHero', 1009165) // avengers
       this.$store.dispatch('home/getHero', 1010338) // captain marvel
