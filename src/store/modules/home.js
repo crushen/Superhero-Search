@@ -29,7 +29,7 @@ export default {
         .get(`${db.url}/characters?nameStartsWith=${string}&ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}`)
         .then(response => {
           commit('setLoading', false)
-          commit('setSearchResults', response.data)
+          commit('setSearchResults', response.data.data.results)
         })
         .catch(error => commit('setError', error))
     },
@@ -40,7 +40,7 @@ export default {
         .get(`${db.url}/characters?nameStartsWith=${string}&ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&offset=${state.offset}`)
         .then(response => {
           commit('setLoading', false)
-          commit('addSearchResults', response.data)
+          commit('addSearchResults', response.data.data.results)
         })
         .catch(error => commit('setError', error))
     }
@@ -53,14 +53,14 @@ export default {
       state.searchResults = []
       state.noScroll = false
       state.offset = 15
-      const array = response.data.results
+      const array = response
       state.searchResults = array.filter(state.hasNoImage)
     },
     setOffset(state, amount) {
       state.offset += amount
     },
     addSearchResults(state, response) {
-      const array = response.data.results.filter(state.hasNoImage)
+      const array = response.filter(state.hasNoImage)
       if(array.length) {
         state.searchResults = state.searchResults.concat(array)
       } else {
