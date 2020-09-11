@@ -28,7 +28,7 @@
         <li
           v-for="comic in searchResults"
           :key="comic.id">
-          {{ comic.title }}
+          <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
         </li>
       </ul>
 
@@ -89,5 +89,11 @@ export default {
 
 li {
   margin-top: 24px;
+
+  img {
+    width: 100%;
+  }
 }
+
+
 </style>

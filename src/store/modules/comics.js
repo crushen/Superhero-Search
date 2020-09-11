@@ -8,7 +8,8 @@ export default {
     searchResults: [],
     loading: false,
     error: null,
-    noScroll: false
+    noScroll: false,
+    hasNoImage: element => element.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
   },
   actions: {
     async getComics({commit}) {
@@ -57,6 +58,8 @@ export default {
   },
   mutations: {
     setComics(state, array) {
+      array = array.filter(state.hasNoImage)
+
       if(!state.comics.length) {
         state.comics = array
       } else {
@@ -65,14 +68,21 @@ export default {
     },
     setSearchResults(state, array) {
       state.searchResults = []
+      state.error = null
       // state.noScroll = false
       // state.offset = 15
+      array = array.filter(state.hasNoImage)
       state.searchResults = array
+
+      if(!array.length) {
+        state.error = 'Error'
+      }
     },
     setLoading(state, set) {
       state.loading = set
     },
     setError(state, error) {
+      state.searchResults = []
       state.error = error.message
       console.log(error)
     }
