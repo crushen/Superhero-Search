@@ -40,7 +40,7 @@ export default {
     loader
   },
   computed: {
-    ...mapState('superheroesAtoZ', ['collections', 'loading', 'noScroll'])
+    ...mapState('superheroes', ['collections', 'loading', 'noScroll'])
   },
   methods: {
     getMoreHeroes() {
@@ -50,7 +50,7 @@ export default {
             bottomOfWindow = currentScroll >= pageHeight;
       // if no more data, don't dispatch 
       if(bottomOfWindow && !this.noScroll) {
-        this.$store.dispatch('superheroesAtoZ/getMoreHeroes')
+        this.$store.dispatch('superheroes/getMoreHeroes')
       }
     },
     slugify(string) {
@@ -74,7 +74,7 @@ export default {
   },
   mounted() {
     if(!this.collections.length) {
-      this.$store.dispatch('superheroesAtoZ/getSuperheroes')
+      this.$store.dispatch('superheroes/getSuperheroes')
     }
     window.addEventListener('scroll', this.getMoreHeroes)
   },
