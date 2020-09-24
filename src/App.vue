@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition name="fade">
-      <loader v-if="loading" />
+      <loader :loading="loading" />
     </transition>
     <app-nav />
     <router-view/>

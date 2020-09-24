@@ -1,5 +1,5 @@
 <template>
-  <div class="overlay">
+  <div v-show="loading" class="overlay" data-testid="loader">
     <div class="loadingio-spinner-ellipsis-n7fcerkjpkh">
       <div class="ldio-2pyxnmbo7uk">
         <div />
@@ -11,6 +11,14 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    loading: { type: Boolean }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
