@@ -1,8 +1,7 @@
 <template>
-  <header>
+  <div>
     <div class="nav-bar">
       <button
-        v-if="innerWidth < 1000"
         @click="openNav"
         class="nav-button">
         <div class="nav-line"></div>
@@ -14,15 +13,17 @@
     <transition 
       enter-active-class="animate__animated animate__slideInLeft" 
       leave-active-class="animate__animated animate__slideOutLeft">
-      <div 
+      <div
         v-if="active" 
         v-on-clickaway="closeNav"
-        class="nav-container">
+        class="nav-container"
+        data-testid="nav">
         <nav>
           <router-link 
             :to="{ name: 'Home' }" 
             exact 
-            @click.native="closeNav">
+            @click.native="closeNav"
+            data-testid="router-link">
             Home
           </router-link>
 
@@ -40,17 +41,16 @@
         </nav>
       </div>
     </transition>
-  </header>
+  </div>
 </template>
 
 <script>
-import { mixin as clickaway } from 'vue-clickaway';
+import { mixin as clickaway } from 'vue-clickaway'
 
 export default {
   mixins: [ clickaway ],
   data() {
     return {
-      innerWidth: null,
       active: false
     }
   },
@@ -65,13 +65,6 @@ export default {
       this.active = false
       document.querySelector('body').style.overflow = 'auto'
     }
-  },
-  mounted() {
-    this.innerWidth = window.innerWidth
-
-    window.addEventListener('resize', () => {
-      this.innerWidth = window.innerWidth
-    })
   }
 }
 </script>
