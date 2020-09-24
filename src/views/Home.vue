@@ -6,20 +6,10 @@
     </header>
 
     <section class="content">
-      <div id="hero-search" class="search-container">
-        <label for="hero-search">Search for your favorite hero to <br>find out their stats and background</label>
-        <div class="search">
-          <div class="input">
-            <img src="@/assets/icons/search.svg" alt="">
-            <input
-              v-model="search"
-              id="search"
-              type="search"
-              autocomplete="off">
-          </div>
-          <button @click="submitSearch">Search</button>
-        </div>
-      </div>
+      <search-bar
+        v-model="search"
+        @submit-search="submitSearch"
+        :label="'Search for your favorite hero to <br>find out their stats and background'" />
     </section>
 
     <section v-if="searchResults.length" class="content padding-bottom">
@@ -35,6 +25,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import searchBar from '@/components/SearchBar'
 import heroList from '@/components/cards/CardList'
 
 export default {
@@ -44,6 +35,7 @@ export default {
     }
   },
   components: {
+    searchBar,
     heroList
   },
   computed: {

@@ -92,18 +92,20 @@ button.button {
         left: 6px;
       }
 
-      input {
+      input[type="search"] {
         padding: 10px 16px 10px 40px;
         box-sizing: border-box;
       }
     }
 
-    button {
+    input[type="submit"] {
       width: 100px;
       height: 39px;
       background: $accent;
+      color: $light-font;
       border-radius: $border-radius;
       margin-left: 8px;
+      font-weight: 400;
     }
   }
 }
