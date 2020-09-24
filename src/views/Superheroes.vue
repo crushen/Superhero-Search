@@ -1,9 +1,5 @@
 <template>
   <div>
-    <transition name="fade">
-      <loader v-if="loading" />
-    </transition>
-
     <header class="content padding-top">
       <h1 class="heading one cursive">Superheroes</h1>
     </header>
@@ -33,12 +29,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import loader from '@/components/loaders/Dots'
 
 export default {
-  components: {
-    loader
-  },
   computed: {
     ...mapState('superheroes', ['collections', 'loading', 'noScroll'])
   },

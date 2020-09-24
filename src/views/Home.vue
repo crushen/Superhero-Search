@@ -1,9 +1,5 @@
 <template>
   <div>
-    <transition name="fade">
-      <loader v-if="loading" />
-    </transition>
-
     <header class="content padding-top">
       <h1 class="heading one cursive">Superhero <span>Search</span></h1>
       <h2 class="heading four">All of your favorite Marvel <br>heroes in one place.</h2>
@@ -39,7 +35,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import loader from '@/components/loaders/Dots'
 import heroList from '@/components/cards/CardList'
 
 export default {
@@ -49,11 +44,10 @@ export default {
     }
   },
   components: {
-    loader,
     heroList
   },
   computed: {
-    ...mapState('home', ['featuredHeroes', 'searchResults', 'loading', 'noScroll'])
+    ...mapState('home', ['featuredHeroes', 'searchResults', 'noScroll'])
   },
   watch: {
     search(string) {
@@ -91,16 +85,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: 0.2s;
-}
 
 header {
   text-align: center;

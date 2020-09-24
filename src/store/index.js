@@ -16,6 +16,13 @@ export default new Vuex.Store({
     comics
   },
   state() {
-    return {}
+    return {
+      loading: false
+    }
+  },
+  mutations: {
+    setLoading(state, set) {
+      state.loading = set
+    }
   }
 })

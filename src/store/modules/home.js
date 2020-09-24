@@ -8,38 +8,37 @@ export default {
     searchResults: [],
     noScroll: false,
     offset: 15,
-    loading: true,
     error: null,
     hasNoImage: element => element.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
   },
   actions: {
     async getHero({commit}, id) {
-      commit('setLoading', true)
+      commit('setLoading', true, { root: true })
       await Axios 
         .get(`${db.url}/characters/${id}?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}`)
         .then(response => {
           commit('addHero', response.data.data.results)
-          commit('setLoading', false)
+          commit('setLoading', false, { root: true })
         })
         .catch(error => commit('setError', error))
     },
     async searchHeroes({commit}, string) {
-      commit('setLoading', true)
+      commit('setLoading', true, { root: true })
       await Axios 
         .get(`${db.url}/characters?nameStartsWith=${string}&ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}`)
         .then(response => {
-          commit('setLoading', false)
+          commit('setLoading', false, { root: true })
           commit('setSearchResults', response.data.data.results)
         })
         .catch(error => commit('setError', error))
     },
     async getMoreHeroes({commit, state}, string) {
-      commit('setLoading', true)
+      commit('setLoading', true, { root: true })
       commit('setOffset', 15)
         await Axios 
         .get(`${db.url}/characters?nameStartsWith=${string}&ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&offset=${state.offset}`)
         .then(response => {
-          commit('setLoading', false)
+          commit('setLoading', false, { root: true })
           commit('addSearchResults', response.data.data.results)
         })
         .catch(error => commit('setError', error))
@@ -69,9 +68,6 @@ export default {
     },
     clearSearchResults(state) {
       state.searchResults = []
-    },
-    setLoading(state, set) {
-      state.loading = set
     },
     setError(state, error) {
       state.error = error.message

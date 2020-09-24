@@ -6,7 +6,6 @@ export default {
   state: {
     heroes: [],
     collections: [],
-    loading: true,
     error: null,
     noScroll: false,
     hasNoImage: element => element.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
@@ -14,22 +13,22 @@ export default {
   actions: {
     async getSuperheroes({commit}) {
       commit('clearState')
-      commit('setLoading', true)
+      commit('setLoading', true, { root: true })
       await Axios
         .get(`${db.url}/characters?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${100}`)
         .then(response => {
           commit('sortHeroes', response.data.data.results)
-          commit('setLoading', false)
+          commit('setLoading', false, { root: true })
         })
         .catch(error => commit('setError', error))
     },
     async getMoreHeroes({commit, state}) {
-      commit('setLoading', true)
+      commit('setLoading', true, { root: true })
         await Axios
         .get(`${db.url}/characters?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${100}&offset=${state.heroes.length}`)
         .then(response => {
           commit('sortHeroes', response.data.data.results)
-          commit('setLoading', false)
+          commit('setLoading', false, { root: true })
         })
         .catch(error => commit('setError', error))
     }
@@ -80,9 +79,6 @@ export default {
     clearState(state) {
       state.heroes = []
       state.collections = []
-    },
-    setLoading(state, set) {
-      state.loading = set
     },
     setError(state, error) {
       state.error = error.message

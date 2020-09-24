@@ -7,7 +7,6 @@ export default {
     searchResults: [],
     comic: null,
     offset: 15,
-    loading: false,
     error: null,
     noScroll: false,
     hasNoImage: element => element.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
@@ -24,16 +23,16 @@ export default {
         url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&startYear=${year}&titleStartsWith=${title}`
       }
       commit('clearSearchResults')
-      commit('setLoading', true)
+      commit('setLoading', true, { root: true })
       await Axios
         .get(url)
         .then(response => {
           commit('setSearchResults', response.data.data.results)
-          commit('setLoading', false)
+          commit('setLoading', false, { root: true })
         })
         .catch(error => {
           commit('setError', error)
-          commit('setLoading', false)
+          commit('setLoading', false, { root: true })
         })
     },
     async getMoreComics({commit, state}, {year, title}) {
@@ -47,23 +46,23 @@ export default {
         url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&startYear=${year}&titleStartsWith=${title}&offset=${state.offset}`
       }
 
-      commit('setLoading', true)
+      commit('setLoading', true, { root: true })
       commit('setOffset', 15)
         await Axios
         .get(url)
         .then(response => {
           commit('addSearchResults', response.data.data.results)
-          commit('setLoading', false)
+          commit('setLoading', false, { root: true })
         })
         .catch(error => commit('setError', error))
     },
     async getComic({commit}, id) {
-      commit('setLoading', true)
+      commit('setLoading', true, { root: true })
       commit('clearComic')
       await Axios 
         .get(`${db.url}/comics/${id}?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}`)
         .then(response => {
-          commit('setLoading', false)
+          commit('setLoading', false, { root: true })
           commit('setComic', response.data.data.results)
         })
         .catch(error => commit('setError', error))
@@ -96,9 +95,6 @@ export default {
     },
     clearComic(state) {
       state.comic = null
-    },
-    setLoading(state, set) {
-      state.loading = set
     },
     setError(state, error) {
       state.searchResults = []
