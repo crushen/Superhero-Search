@@ -8,7 +8,6 @@ describe('Nav', () => {
     })
 
     await wrapper.find('button').trigger('click')
-
     expect(wrapper.find('[data-testid="nav"]').exists()).toBe(true)
   })
 
