@@ -6,9 +6,10 @@
     <div class="body">
       <div class="name">
         <router-link
-          :to="{ name: 'Hero', params: { name: slugify(hero.name), id: hero.id} }">
-          {{ hero.name }}
-        </router-link>
+          :to="{ name: 'Hero', params: { name: slugify(hero.name), id: hero.id} }"
+          data-testid="link">
+            {{ hero.name }}
+          </router-link>
       </div>
     </div>
   </div>
@@ -16,9 +17,7 @@
 
 <script>
 export default {
-  props: {
-    hero: { required: true, type: Object }
-  },
+  props: ['hero'],
   methods: {
     slugify(string) {
       string = string.replace(/^\s+|\s+$/g, '')
