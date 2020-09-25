@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import HeroCard from '@/components/cards/HeroCard'
 import mockData from '@/mocks/heroList.json'
 
-describe('CardList', () => {
+describe('HeroCard', () => {
   it('uses the hero prop data to populate card elements', () => {
     const wrapper = mount(HeroCard, {
       stubs: ['router-link'],

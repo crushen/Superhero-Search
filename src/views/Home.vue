@@ -13,12 +13,12 @@
     </section>
 
     <section v-if="searchResults.length" class="content padding-bottom">
-      <hero-list :list="searchResults" />
+      <hero-list :list="searchResults" data-testid="search-results" />
     </section>
 
     <section v-else class="content padding-bottom">
       <h3 class="heading two">Featured Heroes</h3>
-      <hero-list :list="featuredHeroes" />
+      <hero-list :list="featuredHeroes" data-testid="featured-heroes" />
     </section>
   </div>
 </template>
