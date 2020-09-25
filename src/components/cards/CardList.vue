@@ -12,15 +12,7 @@
 import heroCard from '@/components/cards/HeroCard'
 
 export default {
-  props: {
-    list: { required: true, type: Array }
-  },
-  components: {
-    heroCard
-  }
+  props: ['list'],
+  components: { heroCard }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
