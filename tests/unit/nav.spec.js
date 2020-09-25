@@ -1,4 +1,4 @@
-import Nav from '@/components/nav/Nav.vue'
+import Nav from '@/components/nav/Nav'
 import { mount } from '@vue/test-utils'
 
 describe('Nav', () => {

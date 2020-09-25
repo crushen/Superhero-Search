@@ -9,10 +9,11 @@
         <img src="@/assets/icons/search.svg" alt="">
         <input
           :value="value"
-          @input="$emit('input', $event.target.value)"
+          @input="emitInput($event)"
           id="search"
           type="search"
-          autocomplete="off">
+          autocomplete="off"
+          data-testid="search-input">
       </div>
       <input type="submit" value="Search">
     </div>
@@ -21,9 +22,11 @@
 
 <script>
 export default {
-  props: {
-    label: { type: String, required: true },
-    value: { type: String, required: false }
+  props: ['label', 'value'],
+  methods: {
+    emitInput(event) {
+      this.$emit('input', event.target.value)
+    }
   }
 }
 </script>
