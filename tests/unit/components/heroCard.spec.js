@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import HeroCard from '@/components/cards/HeroCard'
-import mockData from '@/mocks/heroList.json'
+import mockData from '../mocks/heroList.json'
 
 describe('HeroCard', () => {
   it('uses the hero prop data to populate card elements', () => {

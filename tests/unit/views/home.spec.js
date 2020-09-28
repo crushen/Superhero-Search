@@ -1,7 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Home from '@/views/Home'
-import mockData from '@/mocks/heroList.json'
+import mockData from '../mocks/heroList.json'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
