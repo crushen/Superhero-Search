@@ -1,6 +1,7 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Home from '@/views/Home'
+import SearchBar from '@/components/SearchBar'
 import mockData from '../mocks/heroList.json'
 
 const localVue = createLocalVue()
@@ -13,8 +14,13 @@ describe('Home', () => {
   beforeEach(() => {
     homeModule = {
       namespaced: true,
-      actions: { getHero: jest.fn() },
-      mutations: { clearSearchResults: jest.fn() }
+      actions: {
+        getHero: jest.fn(),
+        searchHeroes: jest.fn()
+      },
+      mutations: {
+        clearSearchResults: jest.fn()
+      }
     }
     
     store = new Vuex.Store({
@@ -33,7 +39,7 @@ describe('Home', () => {
     })
 
     expect(homeModule.mutations.clearSearchResults).toHaveBeenCalledTimes(1)
-    expect(wrapper.find('[data-testid="search-results"]').exists()).toBe(false)
+    //expect(wrapper.find('[data-testid="search-results"]').exists()).toBe(false)
   })
 
   test('if featuredHeroes array contains data, do not dispatch getHero when mounted', () => {
@@ -60,5 +66,24 @@ describe('Home', () => {
     })
 
     expect(homeModule.actions.getHero).toHaveBeenCalled()
+  })
+
+  it('dispatches searchHeroes when submitSearch is emitted', () => {
+    const wrapper = mount(Home , {
+      computed: {
+        featuredHeroes: () => [],
+        searchResults: () => []
+      },
+      store,
+      localVue
+    })
+
+    const searchBar = wrapper.find(SearchBar),
+          input = searchBar.find('[data-testid="search-input"]');
+
+    input.setValue('Avengers')
+    searchBar.trigger('submit')
+
+    expect(homeModule.actions.searchHeroes).toHaveBeenCalled()
   })
 })
