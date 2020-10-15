@@ -16,7 +16,8 @@ describe('Home', () => {
       namespaced: true,
       actions: {
         getHero: jest.fn(),
-        searchHeroes: jest.fn()
+        searchHeroes: jest.fn(),
+        getMoreHeroes: jest.fn()
       },
       mutations: {
         clearSearchResults: jest.fn()
@@ -39,10 +40,9 @@ describe('Home', () => {
     })
 
     expect(homeModule.mutations.clearSearchResults).toHaveBeenCalledTimes(1)
-    //expect(wrapper.find('[data-testid="search-results"]').exists()).toBe(false)
   })
 
-  test('if featuredHeroes array contains data, do not dispatch getHero when mounted', () => {
+  test('if featuredHeroes array already contains data, do not dispatch getHero when mounted', () => {
     const wrapper = shallowMount(Home, {
       computed: {
         featuredHeroes: () => [...mockData],
@@ -68,7 +68,7 @@ describe('Home', () => {
     expect(homeModule.actions.getHero).toHaveBeenCalled()
   })
 
-  it('dispatches searchHeroes when submitSearch is emitted', () => {
+  it('dispatches searchHeroes when submitSearch is emitted', async () => {
     const wrapper = mount(Home , {
       computed: {
         featuredHeroes: () => [],
@@ -81,9 +81,57 @@ describe('Home', () => {
     const searchBar = wrapper.get(SearchBar),
           input = searchBar.get('[data-testid="search-input"]');
 
-    input.setValue('Avengers')
-    searchBar.trigger('submit')
+    await input.setValue('Avengers')
+    await searchBar.trigger('submit')
+
+    wrapper.vm.submitSearch()
 
     expect(homeModule.actions.searchHeroes).toHaveBeenCalled()
+  })
+
+  it('replaces featured heroes with search results when submitSearch is called', () => {
+    const wrapper = shallowMount(Home , {
+      computed: {
+        featuredHeroes: () => [],
+        searchResults: () => [...mockData]
+      },
+      store,
+      localVue
+    })
+
+    expect(wrapper.get('[data-testid="search-results"]').exists()).toBe(true)
+    expect(wrapper.find('[data-testid="featured-heroes"]').exists()).toBe(false)
+  })
+
+  it('commits clearSearchResults again when search input has been cleared', async () => {
+    const wrapper = shallowMount(Home , {
+      computed: {
+        featuredHeroes: () => [],
+        searchResults: () => []
+      },
+      store,
+      localVue
+    })
+
+    await wrapper.setData({ search: 'search' })
+    await wrapper.setData({ search: '' })
+
+    expect(homeModule.mutations.clearSearchResults).toHaveBeenCalledTimes(2)
+  })
+
+  it('dispatches getMoreHeroes when user has searched & scrolled to bottom of page', () => {
+    const wrapper = shallowMount(Home , {
+      computed: {
+        featuredHeroes: () => [],
+        searchResults: () => [...mockData]
+      },
+      store,
+      localVue
+    })
+
+    window.pageYOffset = 5000
+    wrapper.vm.getMoreHeroes()
+
+    expect(homeModule.actions.getMoreHeroes).toHaveBeenCalled()
   })
 })
