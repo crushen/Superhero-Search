@@ -26,10 +26,10 @@ import { mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState('comics', ['comic'])
+    ...mapState('comicPage', ['comic'])
   },
   mounted() {
-    this.$store.dispatch('comics/getComic', this.$route.params.id)
+    this.$store.dispatch('comicPage/getComic', this.$route.params.id)
   }
 }
 </script>

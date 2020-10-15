@@ -3,7 +3,7 @@
     <header class="content padding-top">
       <h1 class="heading one cursive">Comics</h1>
     </header>
-    
+
     <section class="content">
       <search-bar
         v-model="search"
@@ -55,6 +55,7 @@ export default {
       const year = this.search.replace(/\D/g, '')
       // get words & hyphenated words from search, and then join to make string
       let title = this.search.match(/\b[a-zA-Z'-]+\b/g)
+      
       if(title) { title = title.join(' ') }
       
       this.$store.dispatch('comics/searchComics', {
@@ -68,17 +69,16 @@ export default {
       const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
             pageHeight = document.documentElement.offsetHeight,
             bottomOfWindow = currentScroll >= pageHeight;
+
       if(bottomOfWindow && !this.noScroll) {
         // get year from search
         const year = this.search.replace(/\D/g, '')
         // get words & hyphenated words from search, and then join to make string
         let title = this.search.match(/\b[a-zA-Z'-]+\b/g)
+
         if(title) { title = title.join(' ') }
         
-        this.$store.dispatch('comics/getMoreComics', {
-          year: year, 
-          title: title
-        })
+        this.$store.dispatch('comics/getMoreComics', { year: year, title: title })
       }
     }
   },
