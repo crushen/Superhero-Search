@@ -3,7 +3,7 @@
     <header class="content padding-top">
       <h1 class="heading one cursive">Comics</h1>
     </header>
-
+    
     <section class="content">
       <search-bar
         v-model="search"
