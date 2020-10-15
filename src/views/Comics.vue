@@ -4,55 +4,35 @@
       <h1 class="heading one cursive">Comics</h1>
     </header>
 
-    <div id="comic-search" class="search-container content">
-      <label for="comic-search">Type in a comic name and / or<br> release year to search for a comic.</label>
-      <div class="search">
-        <div class="input">
-          <img src="@/assets/icons/search.svg" alt="">
-          <input
-            v-model="search"
-            id="search"
-            type="search"
-            autocomplete="off">
-        </div>
-        <button @click="submitSearch">Search</button>
-      </div>
-    </div>
+    <section class="content">
+      <search-bar
+        v-model="search"
+        @submit-search="submitSearch"
+        :label="'Type in a comic name and / or<br> release year to search for a comic.'" />
+    </section>
 
-    <div class="content padding-bottom">
-      <ul v-if="searchResults.length">
-        <li
-          v-for="comic in searchResults"
-          :key="comic.id">
-          <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
-          <router-link :to="{ name: 'Comic', params: { id: comic.id } }">
-            {{ comic.title }}
-          </router-link>
-        </li>
-      </ul>
+    <section v-if="searchResults.length" class="content padding-bottom">
+      <comic-list :comics="searchResults" data-testid="search-results" />
+    </section>
 
-      <ul v-else>
-        <li
-          v-for="comic in featuredComics"
-          :key="comic.id">
-          <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
-          <router-link :to="{ name: 'Comic', params: { id: comic.id } }">
-            {{ comic.title }}
-          </router-link>
-        </li>
-      </ul>
+    <section v-else class="content padding-bottom">
+      <h3 class="heading two">Featured Comics</h3>
+      <comic-list :comics="featuredComics" data-testid="featured-comics" />
+    </section>
 
-      <p v-if="error">
-        Sorry, no search results found.<br>Try searching a release year or comic book title!
-      </p>
-    </div>
+    <p v-if="error">
+      Sorry, no search results found.<br>Try searching a release year or comic book title!
+    </p>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import searchBar from '@/components/SearchBar'
+import comicList from '@/components/lists/ComicList'
 
 export default {
+  components: { searchBar, comicList },
   data() {
     return {
       search: null
@@ -114,15 +94,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import '@/assets/styles/variables.scss';
-
-li {
-  margin-top: 24px;
-
-  img {
-    width: 100%;
-  }
-}
-</style>
