@@ -132,6 +132,6 @@ describe('Home', () => {
     window.pageYOffset = 5000
     wrapper.vm.getMoreHeroes()
 
-    expect(homeModule.actions.getMoreHeroes).toHaveBeenCalled()
+    expect(homeModule.actions.getMoreHeroes).toHaveBeenCalledTimes(1)
   })
 })
