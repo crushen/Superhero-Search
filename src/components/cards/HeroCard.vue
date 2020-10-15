@@ -8,8 +8,8 @@
         <router-link
           :to="{ name: 'Hero', params: { name: slugify(hero.name), id: hero.id} }"
           data-testid="link">
-            {{ hero.name }}
-          </router-link>
+          {{ hero.name }}
+        </router-link>
       </div>
     </div>
   </div>

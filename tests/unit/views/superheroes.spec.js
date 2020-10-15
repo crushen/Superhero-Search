@@ -1,4 +1,4 @@
-import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Superheroes from '@/views/Superheroes'
 import mockData from '../mocks/superheroesCollection.json'
@@ -16,8 +16,6 @@ describe('Superheroes', () => {
       actions: {
         getSuperheroes: jest.fn(),
         getMoreHeroes: jest.fn()
-      },
-      mutations: {
       }
     }
     

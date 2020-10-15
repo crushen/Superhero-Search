@@ -58,6 +58,7 @@ export default {
       const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
             pageHeight = document.documentElement.offsetHeight,
             bottomOfWindow = currentScroll >= pageHeight;
+            
       if(bottomOfWindow && !this.noScroll) {
         this.$store.dispatch('home/getMoreHeroes', this.search)
       }
@@ -65,6 +66,7 @@ export default {
   },
   mounted() {
     this.$store.commit('home/clearSearchResults')
+
     if(!this.featuredHeroes.length) {
       this.$store.dispatch('home/getHero', 1009165) // avengers
       this.$store.dispatch('home/getHero', 1010338) // captain marvel

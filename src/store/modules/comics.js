@@ -4,6 +4,7 @@ import { db } from '@/db'
 export default {
   namespaced: true,
   state: {
+    featuredComics: [],
     searchResults: [],
     comic: null,
     offset: 15,
@@ -12,6 +13,16 @@ export default {
     hasNoImage: element => element.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
   },
   actions: {
+    async getComics({commit}, id) {
+      commit('setLoading', true, { root: true })
+      await Axios 
+        .get(`${db.url}/comics/${id}?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}`)
+        .then(response => {
+          commit('addComics', response.data.data.results)
+          commit('setLoading', false, { root: true })
+        })
+        .catch(error => commit('setError', error))
+    },
     async searchComics({commit}, {year, title}) {
       let url = null
       // set URL depending on whether user has searched for year, title or both
@@ -69,6 +80,9 @@ export default {
     },
   },
   mutations: {
+    addComics(state, response) {
+      state.featuredComics.push(response[0])
+    },
     setSearchResults(state, response) {
       state.searchResults = []
       state.noScroll = false

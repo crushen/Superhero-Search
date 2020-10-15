@@ -31,6 +31,17 @@
         </li>
       </ul>
 
+      <ul v-else>
+        <li
+          v-for="comic in featuredComics"
+          :key="comic.id">
+          <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
+          <router-link :to="{ name: 'Comic', params: { id: comic.id } }">
+            {{ comic.title }}
+          </router-link>
+        </li>
+      </ul>
+
       <p v-if="error">
         Sorry, no search results found.<br>Try searching a release year or comic book title!
       </p>
@@ -48,7 +59,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('comics', ['comics', 'searchResults', 'loading', 'error'])
+    ...mapState('comics', ['featuredComics', 'searchResults', 'noScroll', 'loading', 'error'])
   },
   watch: {
     search(string) {
@@ -93,6 +104,13 @@ export default {
   },
   mounted() {
     this.$store.commit('comics/clearSearchResults')
+
+    if(!this.featuredComics.length) {
+      this.$store.dispatch('comics/getComics', 77792) // black panther
+      this.$store.dispatch('comics/getComics', 82519) // spider-man
+      this.$store.dispatch('comics/getComics', 82500) // captain marvel
+      this.$store.dispatch('comics/getComics', 65940) // guardians
+    }
   }
 }
 </script>
