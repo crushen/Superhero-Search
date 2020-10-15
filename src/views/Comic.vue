@@ -1,7 +1,7 @@
 <template>
   <div v-if="comic">
     <header class="content padding-top">
-      <h1>{{ comic.title }}</h1>
+      <h1 data-testid="title">{{ comic.title }}</h1>
 
       <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
 
