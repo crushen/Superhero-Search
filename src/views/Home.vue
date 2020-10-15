@@ -13,12 +13,12 @@
     </section>
 
     <section v-if="searchResults.length" class="content padding-bottom">
-      <hero-list :list="searchResults" data-testid="search-results" />
+      <hero-list :heroes="searchResults" data-testid="search-results" />
     </section>
 
     <section v-else class="content padding-bottom">
       <h3 class="heading two">Featured Heroes</h3>
-      <hero-list :list="featuredHeroes" data-testid="featured-heroes" />
+      <hero-list :heroes="featuredHeroes" data-testid="featured-heroes" />
     </section>
   </div>
 </template>
@@ -26,7 +26,7 @@
 <script>
 import { mapState } from 'vuex'
 import searchBar from '@/components/SearchBar'
-import heroList from '@/components/cards/CardList'
+import heroList from '@/components/lists/HeroList'
 
 export default {
   data() {

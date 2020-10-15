@@ -1,23 +1,29 @@
 <template>
-  <div 
-    :style="{backgroundImage: `url(${hero.thumbnail.path}.${hero.thumbnail.extension})`}"
-    class="card">
-    <div class="overlay"></div>
-    <div class="body">
-      <div class="name">
-        <router-link
-          :to="{ name: 'Hero', params: { name: slugify(hero.name), id: hero.id} }"
-          data-testid="link">
-          {{ hero.name }}
-        </router-link>
+  <ul>
+    <li
+      v-for="hero in heroes"
+      :key="hero.id">
+      <div 
+        :style="{backgroundImage: `url(${hero.thumbnail.path}.${hero.thumbnail.extension})`}"
+        class="hero-card">
+        <div class="overlay"></div>
+        <div class="body">
+          <div class="name">
+            <router-link
+              :to="{ name: 'Hero', params: { name: slugify(hero.name), id: hero.id} }"
+              data-testid="hero-name">
+              {{ hero.name }}
+            </router-link>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </template>
 
 <script>
 export default {
-  props: ['hero'],
+  props: ['heroes'],
   methods: {
     slugify(string) {
       string = string.replace(/^\s+|\s+$/g, '')
@@ -44,8 +50,9 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
 
-.card {
+.hero-card {
   min-height: 400px;
+  margin-top: 24px;
   position: relative;
   border-radius: $border-radius;
   background-position: center;
