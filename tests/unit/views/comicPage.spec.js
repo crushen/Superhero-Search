@@ -1,6 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import ComicPage from '@/views/Comic'
+import ComicPage from '@/views/ComicPage'
 import mockData from '../mocks/comicsList.json'
 
 const localVue = createLocalVue()
