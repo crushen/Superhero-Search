@@ -78,8 +78,8 @@ describe('Home', () => {
       localVue
     })
 
-    const searchBar = wrapper.find(SearchBar),
-          input = searchBar.find('[data-testid="search-input"]');
+    const searchBar = wrapper.get(SearchBar),
+          input = searchBar.get('[data-testid="search-input"]');
 
     input.setValue('Avengers')
     searchBar.trigger('submit')

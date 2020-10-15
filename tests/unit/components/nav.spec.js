@@ -7,8 +7,8 @@ describe('Nav', () => {
       stubs: ['router-link']
     })
 
-    await wrapper.find('button').trigger('click')
-    expect(wrapper.find('[data-testid="nav"]').exists()).toBe(true)
+    await wrapper.get('button').trigger('click')
+    expect(wrapper.get('[data-testid="nav"]').exists()).toBe(true)
   })
 
   it('should hide when router-link is clicked', async() => {
@@ -17,7 +17,7 @@ describe('Nav', () => {
     })
 
     await wrapper.setData({ active: true })
-    await wrapper.find('[data-testid="router-link"]').trigger('click')
+    await wrapper.get('[data-testid="router-link"]').trigger('click')
 
     expect(wrapper.find('[data-testid="nav"]').exists()).toBe(false)
   })

@@ -6,11 +6,11 @@ describe('Loader', () => {
     const wrapper = mount(Loader)
 
     await wrapper.setProps({ loading: true })
-    expect(wrapper.find('[data-testid="loader"]').isVisible()).toBe(true)
+    expect(wrapper.get('[data-testid="loader"]').isVisible()).toBe(true)
   })
 
   it('should not render when loading prop is false', () => {
     const wrapper = mount(Loader)
-    expect(wrapper.find('[data-testid="loader"]').isVisible()).toBe(false)
+    expect(wrapper.get('[data-testid="loader"]').isVisible()).toBe(false)
   })
 })

@@ -9,7 +9,7 @@ describe('HeroCard', () => {
       propsData: { hero: mockData[0] }
     })
 
-    const link = wrapper.find('[data-testid="link"]').element.textContent.trim()
+    const link = wrapper.get('[data-testid="link"]').element.textContent.trim()
     expect(link).toEqual('Avengers')
   })
 })
