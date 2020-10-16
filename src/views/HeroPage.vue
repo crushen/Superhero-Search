@@ -1,7 +1,7 @@
 <template>
   <div v-if="hero.info">
     <header class="content padding-top">
-      <h1>{{ hero.info.name }}</h1>
+      <h1 data-testid="name">{{ hero.info.name }}</h1>
 
       <img :src="`${hero.info.thumbnail.path}.${hero.info.thumbnail.extension}`" alt="">
 
@@ -18,6 +18,7 @@
           v-for="comic in hero.comics"
           :key="comic.id">
           <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
+          <p data-testid="comic-title">{{ comic.title }}</p>
         </li>
       </ul>
     </section>
