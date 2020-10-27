@@ -2,11 +2,11 @@ import { shallowMount } from '@vue/test-utils'
 import HeroList from '@/components/lists/HeroList'
 import mockData from '../mocks/heroList.json'
 
-describe('CardList', () => {
+describe('HeroList', () => {
   it('uses the heroes prop data to render a list of heroes', () => {
     const wrapper = shallowMount(HeroList, {
-      stubs: ['router-link'],
-      propsData: { heroes: mockData }
+      propsData: { heroes: mockData },
+      stubs: ['router-link']
     })
 
     const names = wrapper.findAll('[data-testid="hero-name"]')
@@ -17,8 +17,8 @@ describe('CardList', () => {
 
   it('turns hero name strings into slugs', () => {
     const wrapper = shallowMount(HeroList, {
-      stubs: ['router-link'],
-      propsData: { heroes: mockData }
+      propsData: { heroes: mockData },
+      stubs: ['router-link']
     })
 
     const name = 'Charlotte Rushen'
