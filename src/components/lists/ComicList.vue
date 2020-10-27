@@ -5,7 +5,9 @@
       :key="comic.id">
       <div class="comic-card">
         <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
-        <router-link :to="{ name: 'Comic', params: { id: comic.id } }">
+        <router-link
+          :to="{ name: 'Comic', params: { id: comic.id } }"
+          data-testid="comic-name">
           {{ comic.title }}
         </router-link>
       </div>
