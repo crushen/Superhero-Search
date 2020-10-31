@@ -1,17 +1,20 @@
 <template>
   <div v-if="hero.info">
     <header class="content padding-top">
-      <h1 data-testid="name">{{ hero.info.name }}</h1>
+      <h1 class="margin-m bottom" data-testid="name">{{ hero.info.name }}</h1>
 
-      <img :src="`${hero.info.thumbnail.path}.${hero.info.thumbnail.extension}`" alt="">
+      <div class="img-card">
+        <img :src="`${hero.info.thumbnail.path}.${hero.info.thumbnail.extension}`" alt="" class="hero-img">
 
-      <p v-if="hero.info.description">{{ hero.info.description }}</p>
+        <p v-if="hero.info.description" class="description">{{ hero.info.description }}</p>
+      </div>
+
     </header>
 
     <section
       v-if="hero.comics.length"
-      class="comics content padding-bottom">
-      <h2>Comics</h2>
+      class="content margin-l top padding-bottom">
+      <h2>Featured Comics</h2>
 
       <ul>
         <li
@@ -40,13 +43,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/variables.scss';
 
 img {
   width: 100%;
-  margin: 24px 0;
 }
 
-.comics {
-  margin-top: 40px;
+.img-card {
+  background: lighten($color: $background, $amount: 7%);
+  border-radius: $border-radius;
+
+  img {
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+
+  .description {
+    padding: 1rem;
+  }
 }
 </style>

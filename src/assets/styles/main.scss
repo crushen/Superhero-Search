@@ -25,6 +25,38 @@ html {
   padding-bottom: 80px;
 }
 
+.margin {
+  &-s {
+    &.top {
+      margin-top: 1rem;
+    }
+
+    &.bottom {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &-m {
+    &.top {
+      margin-top: 2rem;
+    }
+
+    &.bottom {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &-l {
+    &.top {
+      margin-top: 4rem;
+    }
+
+    &.bottom {
+      margin-bottom: 4rem;
+    }
+  }
+}
+
 // Headings & text
 @mixin font($size, $weight) {
   font-size: $size;
