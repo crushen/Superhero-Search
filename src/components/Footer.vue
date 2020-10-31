@@ -41,7 +41,7 @@
 @import '@/assets/styles/variables.scss';
 
 footer {
-  background: lighten($color: $background, $amount: 7%);
+  background: $blue-med;
 }
 
 li {

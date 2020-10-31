@@ -47,7 +47,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba($color: $background, $alpha: 0.8);
+  background: rgba($color: $blue-dark, $alpha: 0.8);
   z-index: 100;
 }
 .ldio-2pyxnmbo7uk div {

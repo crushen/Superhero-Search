@@ -25,8 +25,8 @@ export default {
 @import '@/assets/styles/variables.scss';
 
 .card {
-  background: lighten($color: $background, $amount: 7%);
-  border: 8px solid lighten($color: $background, $amount: 7%);
+  background: $blue-med;
+  border: 8px solid $blue-med;
   border-radius: $border-radius;
 
   img {

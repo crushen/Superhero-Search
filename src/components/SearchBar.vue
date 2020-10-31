@@ -69,7 +69,7 @@ export default {
       min-width: 100px;
       width: 30%;
       height: 100%;
-      background: $accent;
+      background: $orange;
       color: $light-font;
       border-radius: $border-radius;
       margin-left: 0.5em;

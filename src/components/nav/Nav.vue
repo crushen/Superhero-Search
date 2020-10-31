@@ -109,7 +109,7 @@ export default {
 .nav-container {
   height: 100vh;
   width: 80%;
-  background: $accent;
+  background: $orange;
   position: fixed;
   top: 0;
   left: 0;

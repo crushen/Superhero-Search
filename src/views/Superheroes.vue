@@ -65,8 +65,8 @@ export default {
 @import '@/assets/styles/variables.scss';
 
 .collection {
-  border: 6px solid lighten($color: $background, $amount: 7%);
-  background: lighten($color: $background, $amount: 7%);
+  border: 6px solid $blue-med;
+  background: $blue-med;
   border-radius: $border-radius;
 
   &:not(:first-of-type) {
@@ -80,7 +80,7 @@ export default {
 
   .inner {
     padding: 0.5rem;
-    background: $background;
+    background: $blue-dark;
     border-bottom-left-radius: $border-radius;
     border-bottom-right-radius: $border-radius;
 
@@ -92,7 +92,7 @@ export default {
       }
 
       &:not(:last-of-type) {
-        border-bottom: 1px solid lighten($color: $background, $amount: 7%);
+        border-bottom: 1px solid $blue-med;
         padding: 2px 2px 10px 2px;
       }
 

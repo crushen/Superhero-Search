@@ -6,7 +6,7 @@
 }
 
 html {
-  background: $background;
+  background: $blue-dark;
   color: $light-font;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
@@ -97,7 +97,7 @@ ul {
 button.button {
   @include font(18px, 600);
   padding: 1rem;
-  background: $accent;
+  background: $orange;
   border-radius: $border-radius;
 }
 

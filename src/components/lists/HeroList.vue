@@ -51,7 +51,7 @@ li {
     height: 100%;
     position: absolute;
     z-index: 0;
-    background: rgba($color: $background, $alpha: 0.3);
+    background: rgba($color: $blue-dark, $alpha: 0.3);
     border-radius: $border-radius;
   }
 
@@ -69,7 +69,7 @@ li {
       letter-spacing: 2px;
       color: white;
       font-family: 'Bangers', 'Montserrat', sans-serif;
-      text-shadow: 2px 2px 0px $background;
+      text-shadow: 2px 2px 0px $blue-dark;
     }
   }
 }
