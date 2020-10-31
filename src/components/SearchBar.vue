@@ -41,14 +41,17 @@ export default {
   }
 
   .search {
+    height: 40px;
     margin-top: 1rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     .input {
+      width: 68%;
+      height: 100%;
       position: relative;
       
-
       img {
         width: 24px;
         position: absolute;
@@ -63,12 +66,13 @@ export default {
     }
 
     input[type="submit"] {
-      width: 100px;
-      height: 39px;
+      min-width: 100px;
+      width: 30%;
+      height: 100%;
       background: $accent;
       color: $light-font;
       border-radius: $border-radius;
-      margin-left: 0.5rem;
+      margin-left: 0.5em;
       font-weight: 400;
     }
   }
