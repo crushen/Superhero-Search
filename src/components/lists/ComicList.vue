@@ -6,7 +6,10 @@
         data-testid="comic-name">
         <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
 
-        <p class="description heading four">{{ comic.title }}</p>
+        <div class="text">
+          <p class="description heading four">{{ comic.title }}</p>
+          <img class="icon" src="@/assets/icons/arrow-right.svg" alt="">
+        </div>
       </router-link>
     </li>
   </ul>
@@ -23,6 +26,7 @@ export default {
 
 .card {
   background: lighten($color: $background, $amount: 7%);
+  border: 8px solid lighten($color: $background, $amount: 7%);
   border-radius: $border-radius;
 
   img {
@@ -31,12 +35,21 @@ export default {
     border-top-right-radius: $border-radius;
   }
 
-  .description {
-    padding: 1rem;
-  }
-
   &:not(:last-of-type) {
     margin-bottom: 1rem;
+  }
+
+  .text {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .icon {
+    width: 10px;
+    margin-left: 8px;
   }
 }
 </style>

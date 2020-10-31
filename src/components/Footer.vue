@@ -57,8 +57,4 @@ p {
     margin: 4rem 0 0.5rem 0;
   }
 }
-
-a {
-  font-weight: 600;
-}
 </style>

@@ -4,9 +4,7 @@
       <header class="content padding-top">
         <h1 class="heading one margin-m bottom" data-testid="name">{{ hero.info.name }}</h1>
 
-        <hero-card
-          :imgSrc="`${hero.info.thumbnail.path}.${hero.info.thumbnail.extension}`"
-          :description="hero.info.description" />
+        <hero-card :hero="hero" />
       </header>
 
       <section
