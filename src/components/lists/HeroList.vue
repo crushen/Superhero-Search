@@ -1,22 +1,20 @@
 <template>
   <ul>
-    <li
-      v-for="hero in heroes"
-      :key="hero.id">
-      <div 
-        :style="{backgroundImage: `url(${hero.thumbnail.path}.${hero.thumbnail.extension})`}"
-        class="hero-card">
-        <div class="overlay"></div>
-        <div class="body">
-          <div class="name">
-            <router-link
-              :to="{ name: 'Hero', params: { name: slugify(hero.name), id: hero.id} }"
-              data-testid="hero-name">
+    <li v-for="hero in heroes" :key="hero.id">
+      <router-link
+        :to="{ name: 'Hero', params: { name: slugify(hero.name), id: hero.id} }"
+        data-testid="hero-name">
+        <div 
+          :style="{backgroundImage: `url(${hero.thumbnail.path}.${hero.thumbnail.extension})`}"
+          class="hero-card">
+          <div class="overlay"></div>
+          <div class="body">
+            <div class="name">
               {{ hero.name }}
-            </router-link>
+            </div>
           </div>
         </div>
-      </div>
+      </router-link>
     </li>
   </ul>
 </template>
@@ -35,9 +33,14 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
 
+li {
+  &:not(:last-of-type) {
+    margin-bottom: 1rem;
+  }
+}
+
 .hero-card {
   min-height: 400px;
-  margin-top: 24px;
   position: relative;
   border-radius: $border-radius;
   background-position: center;
@@ -66,6 +69,7 @@ export default {
       letter-spacing: 2px;
       color: white;
       font-family: 'Bangers', 'Montserrat', sans-serif;
+      text-shadow: 2px 2px 0px $background;
     }
   }
 }

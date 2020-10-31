@@ -2,22 +2,22 @@
   <div>
     <header class="content padding-top">
       <h1 class="heading one cursive">Superhero <span>Search</span></h1>
-      <h2 class="heading four">All of your favorite Marvel <br>heroes in one place.</h2>
+      <h2 class="heading four margin-s top">All of your favorite Marvel <br>heroes in one place.</h2>
     </header>
 
-    <section class="content">
+    <section class="content margin-l top">
       <search-bar
         v-model="search"
         @submit-search="submitSearch"
         :label="'Search for your favorite hero to <br>find out their stats and background'" />
     </section>
 
-    <section v-if="searchResults.length" class="content padding-bottom">
+    <section v-if="searchResults.length" class="content margin-l top padding-bottom">
       <hero-list :heroes="searchResults" data-testid="search-results" />
     </section>
 
-    <section v-else class="content padding-bottom">
-      <h3 class="heading two">Featured Heroes</h3>
+    <section v-else class="content margin-l top padding-bottom">
+      <h3 class="heading two margin-m bottom">Featured Heroes</h3>
       <hero-list :heroes="featuredHeroes" data-testid="featured-heroes" />
     </section>
   </div>
@@ -85,18 +85,10 @@ header {
 }
 
 .heading.one {
-  font-size: 56px;
+  font-size: 3.5rem;
   
   span {
     display: block;
   }
-}
-
-h2 {
-  margin-top: 24px;
-}
-
-h3 {
-  margin-top: 48px;
 }
 </style>
