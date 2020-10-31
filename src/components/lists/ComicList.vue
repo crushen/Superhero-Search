@@ -1,16 +1,13 @@
 <template>
   <ul>
-    <li
-      v-for="comic in comics"
-      :key="comic.id">
-      <div class="comic-card">
+    <li v-for="comic in comics" :key="comic.id" class="card">
+      <router-link
+        :to="{ name: 'Comic', params: { id: comic.id } }"
+        data-testid="comic-name">
         <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
-        <router-link
-          :to="{ name: 'Comic', params: { id: comic.id } }"
-          data-testid="comic-name">
-          {{ comic.title }}
-        </router-link>
-      </div>
+
+        <p class="description heading four">{{ comic.title }}</p>
+      </router-link>
     </li>
   </ul>
 </template>
@@ -24,11 +21,22 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
 
-.comic-card {
-  margin-top: 24px;
+.card {
+  background: lighten($color: $background, $amount: 7%);
+  border-radius: $border-radius;
 
   img {
     width: 100%;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+
+  .description {
+    padding: 1rem;
+  }
+
+  &:not(:last-of-type) {
+    margin-bottom: 1rem;
   }
 }
 </style>
