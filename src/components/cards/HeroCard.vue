@@ -2,7 +2,7 @@
   <div class="card">
     <img :src="imgSrc" alt="" class="hero-img">
 
-    <p v-if="description" class="description">{{ description }}</p>
+    <p v-if="description" class="description" data-testid="description">{{ description }}</p>
   </div>
 </template>
 
