@@ -59,12 +59,12 @@ li {
     min-height: 400px;
     display: flex;
     align-items: flex-end;
-    padding: 16px;
+    padding: 1rem;
     position: relative;
     z-index: 5;
 
     .name {
-      font-size: 50px;
+      font-size: 3.125rem;
       margin: 0;
       letter-spacing: 2px;
       color: white;
