@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <header class="content padding-top">
       <h1 class="heading one cursive">Superheroes</h1>
     </header>
@@ -24,7 +24,7 @@
         </li>
       </ul>
     </section>
-  </div>
+  </main>
 </template>
 
 <script>

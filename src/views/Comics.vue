@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <header class="content padding-top">
       <h1 class="heading one cursive">Comics</h1>
     </header>
@@ -23,7 +23,7 @@
     <p v-if="error">
       Sorry, no search results found.<br>Try searching a release year or comic book title!
     </p>
-  </div>
+  </main>
 </template>
 
 <script>

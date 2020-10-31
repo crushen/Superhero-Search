@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <header class="content padding-top">
       <h1 class="heading one cursive">Superhero <span>Search</span></h1>
       <h2 class="heading four margin-s top">All of your favorite Marvel <br>heroes in one place.</h2>
@@ -20,7 +20,7 @@
       <h3 class="heading two margin-m bottom">Featured Heroes</h3>
       <hero-list :heroes="featuredHeroes" data-testid="featured-heroes" />
     </section>
-  </div>
+  </main>
 </template>
 
 <script>
