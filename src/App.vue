@@ -5,6 +5,7 @@
     </transition>
     <app-nav />
     <router-view/>
+    <app-footer />
   </div>
 </template>
 
@@ -12,12 +13,10 @@
 import { mapState } from 'vuex'
 import loader from '@/components/loaders/Dots'
 import appNav from '@/components/nav/Nav'
+import appFooter from '@/components/Footer'
 
 export default {
-  components: {
-    loader,
-    appNav
-  },
+  components: { loader, appNav, appFooter },
   computed: {
     ...mapState(['loading'])
   }
