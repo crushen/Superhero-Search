@@ -1,22 +1,20 @@
 <template>
-  <main>
-    <div v-if="hero.info">
-      <header class="content padding-top">
-        <h1 class="heading one margin-m bottom" data-testid="name">{{ hero.info.name }}</h1>
+  <main v-if="hero.info">
+    <header class="content padding-top">
+      <h1 class="heading one margin-m bottom" data-testid="name">{{ hero.info.name }}</h1>
 
-        <hero-card :hero="hero" />
-      </header>
+      <hero-card :hero="hero" />
+    </header>
 
-      <section
-        v-if="hero.comics.length"
-        class="content margin-l top padding-bottom">
-        <h2 class="heading two margin-m bottom">Featured Comics</h2>
+    <section
+      v-if="hero.comics.length"
+      class="content margin-l top padding-bottom">
+      <h2 class="heading two margin-m bottom">Featured Comics</h2>
 
-        <comic-list
-          v-if="hero.comics"
-          :comics="hero.comics" />
-      </section>
-    </div>
+      <comic-list
+        v-if="hero.comics"
+        :comics="hero.comics" />
+    </section>
   </main>
 </template>
 

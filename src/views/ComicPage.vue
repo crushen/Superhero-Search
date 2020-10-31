@@ -1,25 +1,23 @@
 <template>
-  <main>
-    <div v-if="comic">
-      <header class="content padding-top">
-        <h1 data-testid="title">{{ comic.title }}</h1>
+  <main v-if="comic">
+    <header class="content padding-top">
+      <h1 data-testid="title">{{ comic.title }}</h1>
 
-        <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
+      <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
 
-        <p v-if="comic.description" v-html="comic.description" />
-      </header>
+      <p v-if="comic.description" v-html="comic.description" />
+    </header>
 
-      <section class="content padding-bottom">
-        <h2>Creators</h2>
-        <ul v-if="comic.creators.items.length">
-          <li
-            v-for="creator in comic.creators.items"
-            :key="creator.name">
-            <b>{{ creator.role }}:</b> {{ creator.name }}
-          </li>
-        </ul>
-      </section>
-    </div>
+    <section class="content padding-bottom">
+      <h2>Creators</h2>
+      <ul v-if="comic.creators.items.length">
+        <li
+          v-for="creator in comic.creators.items"
+          :key="creator.name">
+          <b>{{ creator.role }}:</b> {{ creator.name }}
+        </li>
+      </ul>
+    </section>
   </main>
 </template>
 

@@ -3,8 +3,13 @@
     <transition name="fade">
       <loader :loading="loading" />
     </transition>
+
     <app-nav />
-    <router-view/>
+
+    <div class="router-view">
+      <router-view/>
+    </div>
+
     <app-footer />
   </div>
 </template>
@@ -27,6 +32,10 @@ export default {
 @import '@/assets/styles/variables.scss';
 @import '@/assets/styles/main.scss';
 @import '@/assets/styles/form-reset.scss';
+
+.router-view {
+  min-height: 100vh;
+}
 
 .fade-enter,
 .fade-leave-to {
