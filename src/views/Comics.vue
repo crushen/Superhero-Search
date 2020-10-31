@@ -4,19 +4,19 @@
       <h1 class="heading one cursive">Comics</h1>
     </header>
 
-    <section class="content">
+    <section class="content margin-l top">
       <search-bar
         v-model="search"
         @submit-search="submitSearch"
         :label="'Type in a comic name and / or<br> release year to search for a comic.'" />
     </section>
 
-    <section v-if="searchResults.length" class="content padding-bottom">
+    <section v-if="searchResults.length" class="content margin-l top padding-bottom">
       <comic-list :comics="searchResults" data-testid="search-results" />
     </section>
 
-    <section v-else class="content padding-bottom">
-      <h3 class="heading two">Featured Comics</h3>
+    <section v-else class="content margin-l top padding-bottom">
+      <h3 class="heading two margin-m bottom">Featured Comics</h3>
       <comic-list :comics="featuredComics" data-testid="featured-comics" />
     </section>
 
@@ -94,3 +94,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+header {
+  text-align: center;
+}
+</style>
