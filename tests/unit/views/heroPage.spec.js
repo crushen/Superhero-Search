@@ -76,11 +76,7 @@ describe('HeroPage', () => {
       store,
       localVue
     })
-
-    const titles = wrapper.findAll('[data-testid="comic-title"]')
-    const title = titles.at(0)
     
     expect(wrapper.get('[data-testid="name"]').element.textContent).toEqual('Avengers')
-    expect(title.element.textContent).toEqual('Thor (2020) #9')
   })
 })
