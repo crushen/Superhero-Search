@@ -39,7 +39,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('comics', ['featuredComics', 'searchResults', 'noScroll', 'loading', 'error'])
+    ...mapState('comics', ['featuredComics', 'searchResults', 'noScroll', 'error'])
   },
   watch: {
     search(string) {

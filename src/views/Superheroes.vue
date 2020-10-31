@@ -33,7 +33,7 @@ import { slugify } from '@/mixins/slugify'
 
 export default {
   computed: {
-    ...mapState('superheroes', ['collections', 'loading', 'noScroll'])
+    ...mapState('superheroes', ['collections', 'noScroll'])
   },
   methods: {
     slugify,
