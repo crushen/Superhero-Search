@@ -67,7 +67,7 @@ export default {
     },
     getMoreComics() {
       const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
-            pageHeight = document.documentElement.offsetHeight - 500,
+            pageHeight = document.documentElement.offsetHeight,
             bottomOfWindow = currentScroll >= pageHeight;
 
       if(bottomOfWindow && !this.noScroll) {
@@ -98,5 +98,9 @@ export default {
 <style lang="scss" scoped>
 header {
   text-align: center;
+}
+
+.heading.one {
+  font-size: 3.5rem;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
-  <main>
-    <header class="content padding-top margin-m bottom">
+  <main class="padding-top padding-bottom">
+    <header class="content margin-m bottom">
       <h1 class="heading one cursive">Superheroes</h1>
     </header>
 
-    <section v-if="collections.length" class="content padding-bottom">
+    <section v-if="collections.length" class="content">
       <ul class="collection-wrapper">
         <li
           v-for="collection in collections"
@@ -40,7 +40,7 @@ export default {
     getMoreHeroes() {
       // fetch more data when user scrolls to bottom of page
       const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
-            pageHeight = document.documentElement.offsetHeight - 500,
+            pageHeight = document.documentElement.offsetHeight,
             bottomOfWindow = currentScroll >= pageHeight;
       // if no more data, don't dispatch 
       if(bottomOfWindow && !this.noScroll) {
@@ -63,6 +63,14 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
+
+header {
+  text-align: center;
+}
+
+.heading.one {
+  font-size: 3.5rem;
+}
 
 .collection {
   border: 6px solid $blue-med;
