@@ -16,7 +16,7 @@
       <div
         v-if="active" 
         v-on-clickaway="closeNav"
-        class="nav-container"
+        class="nav-container padding-top"
         data-testid="nav">
         <nav>
           <router-link 
@@ -57,8 +57,6 @@ export default {
   methods: {
     openNav() {
       this.active = true
-      document.body.scrollTop = 0
-      document.documentElement.scrollTop = 0
       document.querySelector('body').style.overflow = 'hidden'
     },
     closeNav() {
@@ -82,7 +80,7 @@ export default {
 .nav-bar {
   width: 100%;
   position: absolute;
-  padding: 24px 7.5vw;
+  padding: 1.5rem 7.5vw;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -91,38 +89,38 @@ export default {
 .nav-button {
   background: none;
   border: none;
-  height: 18px;
+  height: 25px;
   width: 25px;
   cursor: pointer;
 }
 
 .nav-line {
   width: 100%;
-  height: 3px;
+  height: 10%;
   background: white;
-}
-
-.nav-line:not(:last-of-type) {
-  margin-bottom: 4px;
+  
+  &:not(:last-of-type) {
+    margin-bottom: 4px;
+  }
 }
 
 /* RIGHT NAV DRAWER */
 
 .nav-container {
-  height: calc(100vh - 220px);
-  width: 100%;
+  height: 100vh;
+  width: 80%;
   background: $accent;
   position: fixed;
-  top: 220px;
-  right: 0;
+  top: 0;
+  left: 0;
   z-index: 20;
 }
 
 nav {
-  margin-top: 25%;
+  width: 70%;
+  margin: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 nav a {
