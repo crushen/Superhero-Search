@@ -67,7 +67,7 @@ export default {
     },
     getMoreComics() {
       const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
-            pageHeight = document.documentElement.offsetHeight,
+            pageHeight = document.documentElement.offsetHeight - 500,
             bottomOfWindow = currentScroll >= pageHeight;
 
       if(bottomOfWindow && !this.noScroll) {

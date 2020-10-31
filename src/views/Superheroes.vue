@@ -1,10 +1,10 @@
 <template>
   <main>
-    <header class="content padding-top">
+    <header class="content padding-top margin-m bottom">
       <h1 class="heading one cursive">Superheroes</h1>
     </header>
 
-    <section v-if="collections.length" class="content">
+    <section v-if="collections.length" class="content padding-bottom">
       <ul class="collection-wrapper">
         <li
           v-for="collection in collections"
@@ -40,7 +40,7 @@ export default {
     getMoreHeroes() {
       // fetch more data when user scrolls to bottom of page
       const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
-            pageHeight = document.documentElement.offsetHeight,
+            pageHeight = document.documentElement.offsetHeight - 500,
             bottomOfWindow = currentScroll >= pageHeight;
       // if no more data, don't dispatch 
       if(bottomOfWindow && !this.noScroll) {
@@ -64,31 +64,31 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
 
-.collection-wrapper {
-  margin-top: 54px;
-}
-
 .collection {
   border: 6px solid lighten($color: $background, $amount: 7%);
+  background: lighten($color: $background, $amount: 7%);
   border-radius: $border-radius;
 
   &:not(:first-of-type) {
-    margin-top: 24px;
+    margin-top: 1rem;
   }
 
   h3 {
-    padding: 8px;
-    background: lighten($color: $background, $amount: 7%);
+    padding: 0.5rem;
+    
   }
 
   .inner {
-    padding: 8px;
+    padding: 0.5rem;
+    background: $background;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
 
     li {
       padding: 2px;
 
       &:not(:first-of-type) {
-        margin-top: 8px;
+        margin-top: 0.5rem;
       }
 
       &:not(:last-of-type) {
