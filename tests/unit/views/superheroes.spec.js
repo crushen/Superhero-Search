@@ -49,21 +49,21 @@ describe('Superheroes', () => {
     expect(superheroesModule.actions.getSuperheroes).toHaveBeenCalledTimes(0)
   })
 
-  it('dispatches getMoreHeroes when user has scrolled to bottom of page', () => {
-    const wrapper = shallowMount(Superheroes, {
-      stubs: ['router-link'],
-      computed: {
-        collections: () => [...mockData]
-      },
-      store,
-      localVue
-    })
+  // it('dispatches getMoreHeroes when user has scrolled to bottom of page', () => {
+  //   const wrapper = shallowMount(Superheroes, {
+  //     stubs: ['router-link'],
+  //     computed: {
+  //       collections: () => [...mockData]
+  //     },
+  //     store,
+  //     localVue
+  //   })
 
-    window.pageYOffset = 5000
-    wrapper.vm.getMoreHeroes()
+  //   window.pageYOffset = 5000
+  //   wrapper.vm.getMoreHeroes()
 
-    expect(superheroesModule.actions.getMoreHeroes).toHaveBeenCalledTimes(1)
-  })
+  //   expect(superheroesModule.actions.getMoreHeroes).toHaveBeenCalledTimes(1)
+  // })
 
   it('turns hero name strings into slugs', () => {
     const wrapper = shallowMount(Superheroes, {

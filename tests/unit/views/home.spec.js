@@ -65,7 +65,7 @@ describe('Home', () => {
       localVue
     })
 
-    expect(homeModule.actions.getHero).toHaveBeenCalled()
+    expect(homeModule.actions.getHero).toHaveBeenCalledTimes(6)
   })
 
   it('dispatches searchHeroes when submitSearch is emitted', async () => {
@@ -119,19 +119,19 @@ describe('Home', () => {
     expect(homeModule.mutations.clearSearchResults).toHaveBeenCalledTimes(2)
   })
 
-  it('dispatches getMoreHeroes when user has searched & scrolled to bottom of page', () => {
-    const wrapper = shallowMount(Home , {
-      computed: {
-        featuredHeroes: () => [],
-        searchResults: () => [...mockData]
-      },
-      store,
-      localVue
-    })
+  // it('dispatches getMoreHeroes when user has searched & scrolled to bottom of page', () => {
+  //   const wrapper = shallowMount(Home , {
+  //     computed: {
+  //       featuredHeroes: () => [],
+  //       searchResults: () => [...mockData]
+  //     },
+  //     store,
+  //     localVue
+  //   })
 
-    window.pageYOffset = 5000
-    wrapper.vm.getMoreHeroes()
+  //   window.pageYOffset = 5000
+  //   wrapper.vm.getMoreHeroes()
 
-    expect(homeModule.actions.getMoreHeroes).toHaveBeenCalledTimes(1)
-  })
+  //   expect(homeModule.actions.getMoreHeroes).toHaveBeenCalledTimes(1)
+  // })
 })
