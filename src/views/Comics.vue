@@ -84,7 +84,9 @@ export default {
       this.$store.dispatch('comics/getComics', 77792) // black panther
       this.$store.dispatch('comics/getComics', 82519) // spider-man
       this.$store.dispatch('comics/getComics', 82500) // captain marvel
-      this.$store.dispatch('comics/getComics', 65940) // guardians
+      this.$store.dispatch('comics/getComics', 65940) // guardians 
+      this.$store.dispatch('comics/getComics', 83579) // thor 
+      this.$store.dispatch('comics/getComics', 66915) // lockjaw
     }
   }
 }

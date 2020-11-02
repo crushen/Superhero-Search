@@ -76,6 +76,8 @@ export default {
       this.$store.dispatch('home/getHero', 1010338) // captain marvel
       this.$store.dispatch('home/getHero', 1009368) // iron man 
       this.$store.dispatch('home/getHero', 1017603) // spider gwen
+      this.$store.dispatch('home/getHero', 1010744) // rocket
+      this.$store.dispatch('home/getHero', 1017109) // black widow
     }
   }
 }
