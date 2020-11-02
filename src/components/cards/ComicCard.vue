@@ -13,7 +13,8 @@
       <ul >
         <li
           v-for="creator in comic.creators.items"
-          :key="creator.name">
+          :key="creator.name"
+          data-testid="creators">
           <span>{{ creator.role }}:</span> {{ creator.name }}
         </li>
       </ul>

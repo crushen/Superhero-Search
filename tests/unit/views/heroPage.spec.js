@@ -1,9 +1,9 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import HeroPage from '@/views/HeroPage'
+import ComicList from '@/components/lists/ComicList'
 import mockHero from '../mocks/heroList.json'
 import mockComics from '../mocks/comicsList.json'
-import { info } from 'node-sass'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -78,5 +78,20 @@ describe('HeroPage', () => {
     })
     
     expect(wrapper.get('[data-testid="name"]').element.textContent).toEqual('Avengers')
+  })
+
+  it('uses hero data to render a comicList component', () => {
+    const hero = { info: mockHero[0], comics: mockComics }
+
+    const wrapper = shallowMount(HeroPage, {
+      computed: { hero: () => hero },
+      mocks: { $route },
+      store,
+      localVue
+    })
+
+    const comicList = wrapper.findComponent(ComicList)
+    
+    expect(comicList.exists()).toBe(true)
   })
 })
