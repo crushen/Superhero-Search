@@ -118,3 +118,34 @@ input[type="search"]::-webkit-search-decoration {
   -moz-box-shadow: none;
   box-shadow: none;
 }
+
+// Components
+.comic-card,
+.hero-card {
+  background: $blue-med;
+  border: 8px solid $blue-med;
+  border-radius: $border-radius;
+
+  img {
+    width: 100%;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+
+  &:not(:last-of-type) {
+    margin-bottom: 1rem;
+  }
+
+  .text {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .icon {
+    width: 10px;
+    margin-left: 8px;
+  }
+}
