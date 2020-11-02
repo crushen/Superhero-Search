@@ -4,7 +4,8 @@
       <loader :loading="loading" />
     </transition>
 
-    <app-nav />
+    <mobile-nav class="mobile-nav" />
+    <desktop-nav class="desktop-nav" />
 
     <div class="router-view">
       <router-view/>
@@ -17,11 +18,12 @@
 <script>
 import { mapState } from 'vuex'
 import loader from '@/components/loaders/Dots'
-import appNav from '@/components/nav/Nav'
+import mobileNav from '@/components/nav/MobileNav'
+import desktopNav from '@/components/nav/DesktopNav'
 import appFooter from '@/components/Footer'
 
 export default {
-  components: { loader, appNav, appFooter },
+  components: { loader, mobileNav, desktopNav, appFooter },
   computed: {
     ...mapState(['loading'])
   }
@@ -32,6 +34,10 @@ export default {
 @import '@/assets/styles/variables.scss';
 @import '@/assets/styles/main.scss';
 @import '@/assets/styles/form-reset.scss';
+
+.desktop-nav {
+  display: none;
+}
 
 .router-view {
   min-height: 100vh;
@@ -45,5 +51,16 @@ export default {
 .fade-enter-active,
 .fade-leave-active {
   transition: 0.2s;
+}
+
+// Desktop
+@media only screen and (min-width: 1000px) {
+  .desktop-nav {
+    display: block;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
 }
 </style>

@@ -271,3 +271,15 @@ input[type="search"]::-webkit-search-decoration {
     .attr  { grid-area: attr }
   }
 }
+
+// Desktop
+@media only screen and (min-width: 1000px) {
+  // Page
+  .padding-top {
+    padding-top: 10rem;
+  }
+  
+  .padding-bottom {
+    padding-bottom: 10rem;
+  }
+}
