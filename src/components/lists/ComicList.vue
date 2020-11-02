@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="list-container">
     <li v-for="comic in comics" :key="comic.id" class="comic-list-card">
       <router-link
         :to="{ name: 'Comic', params: { id: comic.id } }"

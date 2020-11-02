@@ -180,3 +180,28 @@ input[type="search"]::-webkit-search-decoration {
 .attr {
   font-size: 0.875rem;
 }
+
+// Tablet
+@media only screen and (min-width: 700px) {
+  html {
+    font-size: 18px;
+  }
+
+  // Components
+  .list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .comic-list-card,
+  .hero-list-card {
+    width: 40%;
+    margin: 1rem;
+
+    .text {
+      min-height: 86px;
+    }
+  }
+}

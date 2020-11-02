@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="list-container">
     <li v-for="hero in heroes" :key="hero.id" class="hero-list-card">
       <router-link
         :to="{ name: 'Hero', params: { name: slugify(hero.name), id: hero.id} }"

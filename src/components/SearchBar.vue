@@ -41,7 +41,7 @@ export default {
   }
 
   .search {
-    height: 40px;
+    height: 2.5rem;
     margin-top: 1rem;
     display: flex;
     align-items: center;
@@ -53,10 +53,10 @@ export default {
       position: relative;
       
       img {
-        width: 24px;
+        width: 1.5rem;
         position: absolute;
-        top: 6px;
-        left: 6px;
+        top: 0.375rem;
+        left: 0.375rem;
       }
 
       input[type="search"] {
@@ -76,5 +76,10 @@ export default {
       font-weight: 600;
     }
   }
+}
+
+// Tablet
+@media only screen and (min-width: 700px) {
+
 }
 </style>
