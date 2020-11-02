@@ -1,7 +1,7 @@
 # Superhero Search
 All of your favourite Marvel heroes in one place!
 
-Currently still a work in progress - I'm using the Marvel Developer API to practice Unit Testing using Vue Test Utils & Jest.
+Currently still a work in progress - I'm using the Marvel Developer API to practice Unit Testing using Vue Test Utils & Jest. So far this has been a great way to test and expand my knowledge, as it involves mocking the Vuex Store and external libraries like Axios.
 
 [View the site here](https://festive-mirzakhani-b3c3a8.netlify.app)
 
