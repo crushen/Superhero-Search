@@ -16,7 +16,8 @@
 
       <load-more-button
         :noMoreResults="noMoreResults"
-        text="Show More Results"
+        text="Show More Comics"
+        disabledText="No More Comics"
         @load-more="showMore"
         class="margin-m top" />
     </section>

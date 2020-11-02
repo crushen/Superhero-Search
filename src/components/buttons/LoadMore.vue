@@ -11,11 +11,11 @@
 
 <script>
 export default {
-  props: ['noMoreResults', 'text'],
+  props: ['noMoreResults', 'text', 'disabledText'],
   computed: {
     buttonText() {
       if(this.noMoreResults) {
-        return 'No More Results'
+        return this.disabledText
       } else {
         return this.text
       }
