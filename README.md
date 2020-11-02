@@ -1,4 +1,6 @@
-# superhero-search
+# Superhero Search
+*All of your favourite Marvel heroes in one place*
+[View the site](https://festive-mirzakhani-b3c3a8.netlify.app)
 
 ## Project setup
 ```

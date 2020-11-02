@@ -2,7 +2,7 @@
   <main>
     <header class="content padding-top">
       <h1 class="heading one cursive">Superhero <span>Search</span></h1>
-      <h2 class="heading four margin-s top">All of your favorite Marvel <br>heroes in one place</h2>
+      <h2 class="heading four margin-s top">All of your favourite Marvel <br>heroes in one place</h2>
     </header>
 
     <section class="content margin-l top">
