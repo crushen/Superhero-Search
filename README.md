@@ -1,6 +1,9 @@
 # Superhero Search
-*All of your favourite Marvel heroes in one place*
-[View the site](https://festive-mirzakhani-b3c3a8.netlify.app)
+All of your favourite Marvel heroes in one place!
+
+Currently still a work in progress - I'm using the Marvel Developer API to practice Unit Testing using Vue Test Utils & Jest.
+
+[View the site here](https://festive-mirzakhani-b3c3a8.netlify.app)
 
 ## Project setup
 ```
