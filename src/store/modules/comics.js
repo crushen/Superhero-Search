@@ -1,5 +1,8 @@
 import Axios from 'axios'
-import { db } from '@/db'
+
+const md5 = require('md5')
+const ts = Date.now()
+const hash = md5(ts + process.env.VUE_APP_PRIVATE_KEY + process.env.VUE_APP_PUBLIC_KEY)
 
 export default {
   namespaced: true,
@@ -16,7 +19,7 @@ export default {
     async getComics({commit}, id) {
       commit('setLoading', true, { root: true })
       await Axios 
-        .get(`${db.url}/comics/${id}?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}`)
+        .get(`${process.env.VUE_APP_API_URL}/comics/${id}?ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}`)
         .then(response => {
           commit('addComics', response.data.data.results)
           commit('setLoading', false, { root: true })
@@ -27,11 +30,11 @@ export default {
       let url = null
       // set URL depending on whether user has searched for year, title or both
       if(year && !title) {
-        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&startYear=${year}`
+        url = `${process.env.VUE_APP_API_URL}/comics?ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}&limit=${15}&startYear=${year}`
       } else if(title && !year) {
-        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&titleStartsWith=${title}`
+        url = `${process.env.VUE_APP_API_URL}/comics?ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}&limit=${15}&titleStartsWith=${title}`
       } else {
-        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&startYear=${year}&titleStartsWith=${title}`
+        url = `${process.env.VUE_APP_API_URL}/comics?ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}&limit=${15}&startYear=${year}&titleStartsWith=${title}`
       }
       commit('clearSearchResults')
       commit('setLoading', true, { root: true })
@@ -50,11 +53,11 @@ export default {
       let url = null
       // set URL depending on whether user has searched for year, title or both
       if(year && !title) {
-        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&startYear=${year}&offset=${state.offset}`
+        url = `${process.env.VUE_APP_API_URL}/comics?ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}&limit=${15}&startYear=${year}&offset=${state.offset}`
       } else if(title && !year) {
-        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&titleStartsWith=${title}&offset=${state.offset}`
+        url = `${process.env.VUE_APP_API_URL}/comics?ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}&limit=${15}&titleStartsWith=${title}&offset=${state.offset}`
       } else {
-        url = `${db.url}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&startYear=${year}&titleStartsWith=${title}&offset=${state.offset}`
+        url = `${process.env.VUE_APP_API_URL}/comics?ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}&limit=${15}&startYear=${year}&titleStartsWith=${title}&offset=${state.offset}`
       }
 
       commit('setLoading', true, { root: true })

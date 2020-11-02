@@ -1,5 +1,8 @@
 import Axios from 'axios'
-import { db } from '@/db'
+
+const md5 = require('md5')
+const ts = Date.now()
+const hash = md5(ts + process.env.VUE_APP_PRIVATE_KEY + process.env.VUE_APP_PUBLIC_KEY)
 
 export default {
   namespaced: true,
@@ -16,7 +19,7 @@ export default {
       commit('setLoading', true, { root: true })
       commit('clearHero')
       await Axios 
-        .get(`${db.url}/characters/${id}?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}`)
+        .get(`${process.env.VUE_APP_API_URL}/characters/${id}?ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}`)
         .then(response => {
           commit('setLoading', false, { root: true })
           commit('setHero', response.data.data.results)
@@ -27,7 +30,7 @@ export default {
       commit('setLoading', true, { root: true })
       commit('clearHero')
       await Axios 
-        .get(`${db.url}/characters/${id}/comics?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}`)
+        .get(`${process.env.VUE_APP_API_URL}/characters/${id}/comics?ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}`)
         .then(response => {
           commit('setLoading', false, { root: true })
           commit('setComics', response.data.data.results)

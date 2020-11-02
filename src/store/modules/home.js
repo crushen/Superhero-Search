@@ -1,5 +1,8 @@
 import Axios from 'axios'
-import { db } from '@/db'
+
+const md5 = require('md5')
+const ts = Date.now()
+const hash = md5(ts + process.env.VUE_APP_PRIVATE_KEY + process.env.VUE_APP_PUBLIC_KEY)
 
 const state = () => ({
   featuredHeroes: [],
@@ -14,7 +17,7 @@ export const actions = {
   async getHero({commit}, id) {
     commit('setLoading', true, { root: true })
     await Axios 
-      .get(`${db.url}/characters/${id}?ts=${db.ts}&apikey=${db.key}&hash=${db.hash}`)
+      .get(`${process.env.VUE_APP_API_URL}/characters/${id}?ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}`)
       .then(response => {
         commit('addHero', response.data.data.results)
         commit('setLoading', false, { root: true })
@@ -24,7 +27,7 @@ export const actions = {
   async searchHeroes({commit}, string) {
     commit('setLoading', true, { root: true })
     await Axios 
-      .get(`${db.url}/characters?nameStartsWith=${string}&ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}`)
+      .get(`${process.env.VUE_APP_API_URL}/characters?nameStartsWith=${string}&ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}&limit=${15}`)
       .then(response => {
         commit('setLoading', false, { root: true })
         commit('setSearchResults', response.data.data.results)
@@ -34,8 +37,8 @@ export const actions = {
   async getMoreHeroes({commit, state}, string) {
     commit('setLoading', true, { root: true })
     commit('setOffset', 15)
-      await Axios 
-      .get(`${db.url}/characters?nameStartsWith=${string}&ts=${db.ts}&apikey=${db.key}&hash=${db.hash}&limit=${15}&offset=${state.offset}`)
+      await Axios
+      .get(`${process.env.VUE_APP_API_URL}/characters?nameStartsWith=${string}&ts=${ts}&apikey=${process.env.VUE_APP_PUBLIC_KEY}&hash=${hash}&limit=${15}&offset=${state.offset}`)
       .then(response => {
         commit('setLoading', false, { root: true })
         commit('addSearchResults', response.data.data.results)
