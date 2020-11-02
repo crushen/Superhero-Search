@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <img :src="`${hero.info.thumbnail.path}.${hero.info.thumbnail.extension}`" alt="" class="hero-img">
+  <div class="hero-card">
+    <img :src="`${hero.info.thumbnail.path}.${hero.info.thumbnail.extension}`" alt="">
 
     <div class="info">
       <div v-if="hero.info.description" class="margin-m bottom">
@@ -27,27 +27,3 @@ export default {
   props: ['hero']
 }
 </script>
-
-<style lang="scss" scoped>
-@import '@/assets/styles/variables.scss';
-
-.card {
-  background: $blue-med;
-  border: 8px solid $blue-med;
-  border-radius: $border-radius;
-
-  img {
-    width: 100%;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
-  }
-
-  .info {
-    padding: 1rem;
-  }
-}
-
-.attr {
-  font-size: 0.875rem;
-}
-</style>

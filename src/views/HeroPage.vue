@@ -11,9 +11,7 @@
       class="content margin-l top">
       <h2 class="heading two margin-m bottom">Featured Comics</h2>
 
-      <comic-list
-        v-if="hero.comics"
-        :comics="hero.comics" />
+      <comic-list :comics="hero.comics" />
     </section>
   </main>
 </template>

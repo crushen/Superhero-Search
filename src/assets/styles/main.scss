@@ -120,8 +120,8 @@ input[type="search"]::-webkit-search-decoration {
 }
 
 // Components
-.comic-card,
-.hero-card {
+.comic-list-card,
+.hero-list-card {
   background: $blue-med;
   border: 8px solid $blue-med;
   border-radius: $border-radius;
@@ -148,4 +148,35 @@ input[type="search"]::-webkit-search-decoration {
     width: 10px;
     margin-left: 8px;
   }
+}
+
+.comic-card,
+.hero-card {
+  background: $blue-med;
+  border: 8px solid $blue-med;
+  border-radius: $border-radius;
+
+  img {
+    width: 100%;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+
+  .info {
+    padding: 1rem;
+  }
+
+  li {
+    &:not(:first-of-type){
+      margin-top: 0.5rem;
+    }
+  }
+
+  span {
+    text-transform: capitalize;
+  }
+}
+
+.attr {
+  font-size: 0.875rem;
 }
