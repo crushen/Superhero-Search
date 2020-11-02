@@ -9,7 +9,7 @@ export default {
     comic: null,
     offset: 15,
     error: null,
-    noScroll: false,
+    noMoreResults: false,
     hasNoImage: element => element.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
   },
   actions: {
@@ -86,10 +86,11 @@ export default {
       if(array.length) {
         state.searchResults = state.searchResults.concat(array)
       } else {
-        state.noScroll = true
+        state.noMoreResults = true
       }
     },
     clearSearchResults(state) {
+      state.noMoreResults = false
       state.searchResults = []
       state.error = null
     },

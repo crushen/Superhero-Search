@@ -13,33 +13,36 @@
 
     <section v-if="searchResults.length" class="content margin-l top padding-bottom">
       <comic-list :comics="searchResults" data-testid="search-results" />
+
+      <load-more-button
+        :noMoreResults="noMoreResults"
+        text="Show More Results"
+        @load-more="showMore"
+        class="margin-m top" />
     </section>
 
     <section v-else class="content margin-l top padding-bottom">
       <h3 class="heading two margin-m bottom">Featured Comics</h3>
       <comic-list :comics="featuredComics" data-testid="featured-comics" />
     </section>
-
-    <p v-if="error">
-      Sorry, no search results found.<br>Try searching a release year or comic book title!
-    </p>
   </main>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import searchBar from '@/components/SearchBar'
+import loadMoreButton from '@/components/buttons/LoadMore'
 import comicList from '@/components/lists/ComicList'
 
 export default {
-  components: { searchBar, comicList },
+  components: { searchBar, loadMoreButton, comicList },
   data() {
     return {
       search: null
     }
   },
   computed: {
-    ...mapState('comics', ['featuredComics', 'searchResults', 'noScroll', 'error'])
+    ...mapState('comics', ['featuredComics', 'searchResults', 'noMoreResults'])
   },
   watch: {
     search(string) {
@@ -50,35 +53,26 @@ export default {
     }
   },
   methods: {
-    submitSearch() {
+    formatSearch(searchString) {
       // get year from search
-      const year = this.search.replace(/\D/g, '')
+      const year = searchString.replace(/\D/g, '')
       // get words & hyphenated words from search, and then join to make string
-      let title = this.search.match(/\b[a-zA-Z'-]+\b/g)
+      let title = searchString.match(/\b[a-zA-Z'-]+\b/g)
       
-      if(title) { title = title.join(' ') }
-      
-      this.$store.dispatch('comics/searchComics', {
-        year: year, 
-        title: title
-      })
+      if(title) { 
+        title = title.join(' ')
+      }
 
-      window.addEventListener('scroll', this.getMoreComics)
+      return { year: year, title: title }
     },
-    getMoreComics() {
-      const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
-            pageHeight = document.documentElement.offsetHeight,
-            bottomOfWindow = currentScroll >= pageHeight;
+    submitSearch() {
+      this.$store.dispatch('comics/searchComics', this.formatSearch(this.search))
+    },
+    showMore() {
+      if(!this.noMoreResults) {
 
-      if(bottomOfWindow && !this.noScroll) {
-        // get year from search
-        const year = this.search.replace(/\D/g, '')
-        // get words & hyphenated words from search, and then join to make string
-        let title = this.search.match(/\b[a-zA-Z'-]+\b/g)
-
-        if(title) { title = title.join(' ') }
-        
-        this.$store.dispatch('comics/getMoreComics', { year: year, title: title })
+        const scrollY = window.scrollY
+        this.$store.dispatch('comics/getMoreComics', this.formatSearch(this.search)).then(() => window.scroll(0, scrollY))
       }
     }
   },

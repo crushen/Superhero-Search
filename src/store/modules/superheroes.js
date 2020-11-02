@@ -7,7 +7,7 @@ export default {
     heroes: [],
     collections: [],
     error: null,
-    noScroll: false,
+    noMoreResults: false,
     hasNoImage: element => element.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
   },
   actions: {
@@ -73,10 +73,11 @@ export default {
         }
         // if user reaches end of results, infinite scroll disabled
       } else {
-        state.noScroll = true
+        state.noMoreResults = true
       }
     },
     clearState(state) {
+      state.noMoreResults = false
       state.heroes = []
       state.collections = []
     },

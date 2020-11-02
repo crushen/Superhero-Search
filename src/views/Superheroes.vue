@@ -23,6 +23,12 @@
           </ul>
         </li>
       </ul>
+
+      <load-more-button
+        :noMoreResults="noMoreResults"
+        text="Show More Results"
+        @load-more="showMore"
+        class="margin-m top" />
     </section>
   </main>
 </template>
@@ -30,21 +36,19 @@
 <script>
 import { mapState } from 'vuex'
 import { slugify } from '@/mixins/slugify'
+import loadMoreButton from '@/components/buttons/LoadMore'
 
 export default {
+  components: { loadMoreButton },
   computed: {
-    ...mapState('superheroes', ['collections', 'noScroll'])
+    ...mapState('superheroes', ['collections', 'noMoreResults'])
   },
   methods: {
     slugify,
-    getMoreHeroes() {
-      // fetch more data when user scrolls to bottom of page
-      const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
-            pageHeight = document.documentElement.offsetHeight,
-            bottomOfWindow = currentScroll >= pageHeight;
-      // if no more data, don't dispatch 
-      if(bottomOfWindow && !this.noScroll) {
-        this.$store.dispatch('superheroes/getMoreHeroes')
+    showMore() {
+      if(!this.noMoreResults) {
+        const scrollY = window.scrollY
+        this.$store.dispatch('superheroes/getMoreHeroes').then(() => window.scroll(0, scrollY))
       }
     }
   },
@@ -52,11 +56,6 @@ export default {
     if(!this.collections.length) {
       this.$store.dispatch('superheroes/getSuperheroes')
     }
-    window.addEventListener('scroll', this.getMoreHeroes)
-  },
-  beforeRouteLeave (to, from, next) {
-    window.removeEventListener('scroll', this.getMoreHeroes)
-    next()
   }
 }
 </script>
