@@ -73,7 +73,7 @@ export default {
       color: $light-font;
       border-radius: $border-radius;
       margin-left: 0.5em;
-      font-weight: 400;
+      font-weight: 600;
     }
   }
 }

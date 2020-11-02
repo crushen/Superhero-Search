@@ -14,6 +14,12 @@
 
     <section v-if="searchResults.length" class="content margin-l top padding-bottom">
       <hero-list :heroes="searchResults" data-testid="search-results" />
+
+      <load-more-button
+        :noMoreResults="noMoreResults"
+        text="Show More Results"
+        @load-more="showMore"
+        class="margin-m top" />
     </section>
 
     <section v-else class="content margin-l top padding-bottom">
@@ -26,6 +32,7 @@
 <script>
 import { mapState } from 'vuex'
 import searchBar from '@/components/SearchBar'
+import loadMoreButton from '@/components/buttons/LoadMore'
 import heroList from '@/components/lists/HeroList'
 
 export default {
@@ -36,31 +43,27 @@ export default {
   },
   components: {
     searchBar,
+    loadMoreButton,
     heroList
   },
   computed: {
-    ...mapState('home', ['featuredHeroes', 'searchResults', 'noScroll'])
+    ...mapState('home', ['featuredHeroes', 'searchResults', 'noMoreResults'])
   },
   watch: {
     search(string) {
       if(!string) {
         this.$store.commit('home/clearSearchResults')
-        window.removeEventListener('scroll', this.getMoreHeroes)
       }
     }
   },
   methods: {
     submitSearch() {
       this.$store.dispatch('home/searchHeroes', this.search)
-      window.addEventListener('scroll', this.getMoreHeroes)
     },
-    getMoreHeroes() {
-      const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
-            pageHeight = document.documentElement.offsetHeight,
-            bottomOfWindow = currentScroll >= pageHeight;
-            
-      if(bottomOfWindow && !this.noScroll) {
-        this.$store.dispatch('home/getMoreHeroes', this.search)
+    showMore() {
+      if(!this.noMoreResults) {
+        const scrollY = window.scrollY
+        this.$store.dispatch('home/getMoreHeroes', this.search).then(() => window.scroll(0, scrollY))
       }
     }
   },

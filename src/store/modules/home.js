@@ -4,7 +4,7 @@ import { db } from '@/db'
 const state = () => ({
   featuredHeroes: [],
   searchResults: [],
-  noScroll: false,
+  noMoreResults: false,
   offset: 15,
   error: null,
   hasNoImage: element => element.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
@@ -54,7 +54,6 @@ export const mutations = {
     state.offset = 15
     const array = response
     state.searchResults = array.filter(state.hasNoImage)
-    console.log(array.filter(state.hasNoImage))
   },
   setOffset(state, amount) {
     state.offset += amount
@@ -64,10 +63,11 @@ export const mutations = {
     if(array.length) {
       state.searchResults = state.searchResults.concat(array)
     } else {
-      state.noScroll = true
+      state.noMoreResults = true
     }
   },
   clearSearchResults(state) {
+    state.noMoreResults = false
     state.searchResults = []
   },
   setError(state, error) {
