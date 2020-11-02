@@ -51,7 +51,7 @@ export default {
     },
     setError(state, error) {
       state.error = error.message
-      console.log(error)
+      // console.log(error)
     }
   }
 }

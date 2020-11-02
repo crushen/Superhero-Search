@@ -75,7 +75,7 @@ export const mutations = {
   },
   setError(state, error) {
     state.error = error.message
-    console.log(error)
+    // console.log(error)
   }
 }
 

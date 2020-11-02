@@ -100,7 +100,7 @@ export default {
     setError(state, error) {
       state.searchResults = []
       state.error = error.message
-      console.log(error)
+      // console.log(error)
     }
   }
 }
