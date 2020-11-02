@@ -1,6 +1,6 @@
 <template>
-  <main v-if="hero.info">
-    <header class="content padding-top">
+  <main v-if="hero.info" class="padding-top padding-bottom">
+    <header class="content">
       <h1 class="heading one margin-m bottom" data-testid="name">{{ hero.info.name }}</h1>
 
       <hero-card :hero="hero" />
@@ -8,7 +8,7 @@
 
     <section
       v-if="hero.comics.length"
-      class="content margin-l top padding-bottom">
+      class="content margin-l top">
       <h2 class="heading two margin-m bottom">Featured Comics</h2>
 
       <comic-list
