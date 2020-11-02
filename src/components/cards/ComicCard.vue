@@ -1,14 +1,16 @@
 <template>
   <div class="comic-card">
-    <img :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`" alt="">
+    <img
+      :src="`${comic.thumbnail.path}.${comic.thumbnail.extension}`"
+      alt=""
+      class="img margin-s bottom">
 
-    <div class="info">
-      <div v-if="comic.description" class="margin-m bottom">
-        <p class="heading three margin-s bottom">Description</p>
-        <p v-html="comic.description" />
-      </div>
+    <div v-if="comic.description" class="desc margin-m bottom text">
+      <p class="heading three margin-s bottom">Description</p>
+      <p v-html="comic.description" />
+    </div>
 
-      <div v-if="comic.creators.items.length" class="margin-m bottom">
+    <div v-if="comic.creators.items.length" class="creators margin-m bottom text">
       <p class="heading three margin-s bottom">Creators</p>
       <ul >
         <li
@@ -18,10 +20,9 @@
           <span>{{ creator.role }}:</span> {{ creator.name }}
         </li>
       </ul>
-      </div>
-
-      <p class="attr">Data provided by <a href="http://marvel.com">Marvel</a> <br>© 2020 MARVEL</p>
     </div>
+
+    <p class="attr margin-s bottom text">Data provided by <a href="http://marvel.com">Marvel</a> <br>© 2020 MARVEL</p>
   </div>
 </template>
 

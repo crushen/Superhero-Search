@@ -123,7 +123,7 @@ input[type="search"]::-webkit-search-decoration {
 .comic-list-card,
 .hero-list-card {
   background: $blue-med;
-  border: 8px solid $blue-med;
+  border: 0.5rem solid $blue-med;
   border-radius: $border-radius;
 
   img {
@@ -153,7 +153,7 @@ input[type="search"]::-webkit-search-decoration {
 .comic-card,
 .hero-card {
   background: $blue-med;
-  border: 8px solid $blue-med;
+  border: 0.5rem solid $blue-med;
   border-radius: $border-radius;
 
   img {
@@ -162,8 +162,8 @@ input[type="search"]::-webkit-search-decoration {
     border-top-right-radius: $border-radius;
   }
 
-  .info {
-    padding: 1rem;
+  .text {
+    padding: 0 1rem;
   }
 
   li {
@@ -203,5 +203,60 @@ input[type="search"]::-webkit-search-decoration {
     .text {
       min-height: 86px;
     }
+  }
+
+  .comic-card,
+  .hero-card {
+    border: 1rem solid $blue-med;
+    display: grid;
+    grid-template-columns: 0.4fr 0.6fr;
+    grid-template-rows: auto;
+    gap: 1rem;
+
+    img {
+      border-radius: $border-radius;
+    }
+
+    li {
+      &:not(:first-of-type){
+        margin-top: 1rem;
+      }
+    }
+
+    .text {
+      padding: 0;
+    }
+
+    br {
+      display: none;
+    }
+  }
+
+  .comic-card {
+    grid-template-areas: 
+    "img creators"
+    "desc desc"
+    "attr attr";
+
+    .img, .creators, .desc, .attr { margin: 0; }
+
+    .img      { grid-area: img }
+    .creators { grid-area: creators; }
+    .desc     { grid-area: desc }
+    .attr     { grid-area: attr }
+  }
+
+  .hero-card {
+    grid-template-areas: 
+    "img stats"
+    "bio bio"
+    "attr attr";
+
+    .img, .stats, .bio, .attr { margin: 0; }
+
+    .img   { grid-area: img }
+    .stats { grid-area: stats; }
+    .bio   { grid-area: bio }
+    .attr  { grid-area: attr }
   }
 }
