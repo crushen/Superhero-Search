@@ -1,27 +1,33 @@
 <template>
   <div>
     <nav>
-      <div class="content">
-        <router-link 
-          :to="{ name: 'Home' }" 
-          exact 
-          @click.native="closeNav"
-          data-testid="router-link">
-          Home
-        </router-link>
+      <ul class="content">
+        <li>
+          <router-link 
+            :to="{ name: 'Home' }" 
+            exact 
+            @click.native="closeNav"
+            data-testid="router-link">
+            Home
+          </router-link>
+        </li>
 
-        <router-link 
-          :to="{ name: 'Superheroes' }"
-          @click.native="closeNav">
-          Superheroes
-        </router-link>
+        <li>
+          <router-link 
+            :to="{ name: 'Superheroes' }"
+            @click.native="closeNav">
+            Superheroes
+          </router-link>
+        </li>
 
-        <router-link 
-          :to="{ name: 'Comics' }"
-          @click.native="closeNav">
-          Comics
-        </router-link>
-      </div>
+        <li>
+          <router-link 
+            :to="{ name: 'Comics' }"
+            @click.native="closeNav">
+            Comics
+          </router-link>
+        </li>
+      </ul>
     </nav>
   </div>
 </template>
